@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
+import { getAuth, signOut } from "firebase/auth";
 import {
   TODO_ROUTE,
   LOGIN_ROUTE,
@@ -24,10 +25,25 @@ import {
 } from './components/index.js';
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null/* {name: 'Admin'} */);
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(userData);
+  const authFirebase = getAuth();
+
+  const logIn = (userIn) => {
+    setUser(userIn);
+    localStorage.setItem('user', JSON.stringify(userIn));
+  };
+  const logOut = () => {
+    signOut(authFirebase);
+    localStorage.removeItem('user');
+    setUser(null);
+  };
 
   return (
-    <authContext.Provider value={{ user }}>
+    <authContext.Provider value={{
+      user, logIn, logOut, authFirebase,
+    }}
+    >
       {children}
     </authContext.Provider>
   );
