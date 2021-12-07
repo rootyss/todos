@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import {
   TODO_ROUTE,
   LOGIN_ROUTE,
@@ -10,7 +11,7 @@ import {
 import useAuth from '../../hooks/useAuth.jsx';
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const auth = useAuth();
 
   return (
     <nav className="bg-white shadow-sm navbar navbar-light">
@@ -23,15 +24,27 @@ const Navbar = () => {
             </ul>
           </div>
           <ul className="navbar-nav">
-            <li className="nav-item">
-              {user ? null : <Link className="nav-link" to={LOGIN_ROUTE}>Вход</Link>}
-            </li>
-            <li className="nav-item">
-              {user ? null : <Link className="nav-link" to={REG_ROUTE}>Зарегистрироваться</Link>}
-            </li>
-            <li className="nav-item">
-              {user ? <Link className="nav-link" to={USER_PROFILE_ROUTE}>{user.name}</Link> : null}
-            </li>
+            {auth.user
+              ? (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={USER_PROFILE_ROUTE}>{auth.user.displayName ?? "Аноним"}</Link>
+                  </li>
+                  <li className="nav-item">
+                    <button type="button" className="btn btn-primary" onClick={() => auth.logOut()}>Выход</button>
+                  </li>
+                </>
+              )
+              : (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={LOGIN_ROUTE}>Вход</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to={REG_ROUTE}>Зарегистрироваться</Link>
+                  </li>
+                </>
+              )}
           </ul>
         </div>
       </div>
