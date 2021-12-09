@@ -32,3 +32,6 @@ rules:
   functional/no-throw-statement: 0
   quotes: 0
   react/function-component-definition: 0
+  jsx-a11y/label-has-associated-control:
+  - 2
+  - assert: either
