@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -14,15 +14,14 @@ import {
 } from './utils/constants.js';
 import authContext from './context/authContext.js';
 import useAuth from './hooks/useAuth.jsx';
-import {
-  MainLayout,
-  NoMatch,
-  Login,
-  ToDo,
-  Information,
-  Note,
-  SignUp,
-} from './components/index.js';
+
+import MainLayout from './components/mainLayout/MainLayout.jsx';
+import NoMatch from './components/noMatch/NoMatch.jsx';
+import Login from './components/login/Login.jsx';
+import ToDo from './components/todo/ToDo.jsx';
+import Information from './components/information/Information.jsx';
+import Note from './components/note/Note.jsx';
+import SignUp from './components/signUp/SignUp.jsx';
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -39,11 +38,12 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const memoValues = useMemo(() => ({
+    user, logIn, logOut, authFirebase,
+  }), [user, logIn, logOut]);
+
   return (
-    <authContext.Provider value={{
-      user, logIn, logOut, authFirebase,
-    }}
-    >
+    <authContext.Provider value={memoValues}>
       {children}
     </authContext.Provider>
   );
