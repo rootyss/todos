@@ -3,22 +3,28 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Navigate } from 'react-router-dom';
+import cn from 'classnames';
+import * as _ from 'lodash';
 import useAuth from '../../hooks/useAuth.jsx';
 import {
-  REG_ROUTE,
+  REG_ROUTE, TODO_ROUTE,
 } from '../../utils/constants.js';
+import getAuthErrorText from '../../utils/utils.js';
+import Spinner from '../spinner/Spinner.jsx';
 
 const LogInForm = ({ auth }) => {
+  const [authFailed, setAuthFailed] = useState(false);
+  const [authError, setAuthError] = useState(false);
+
   const inputRef = useRef();
+
   useEffect(() => {
     inputRef.current.focus();
   }, [inputRef]);
 
-  const [authFailed, setAuthFailed] = useState(false);
-
   const SigninSchema = yup.object({
-    email: yup.string().email().required(),
-    password: yup.string().required(),
+    email: yup.string().email('Некорректно введён адрес электронной почты').required('Почта - обязательное поле'),
+    password: yup.string().required('Пароль - обязательное поле'),
   });
 
   const formik = useFormik({
@@ -34,24 +40,37 @@ const LogInForm = ({ auth }) => {
         const { email, password } = values;
         const { user } = await signInWithEmailAndPassword(auth.authFirebase, email, password);
         auth.logIn(user);
+        return null;
       } catch (err) {
-        setAuthFailed(false);
-        console.log(err);
-        throw err;
+        setAuthFailed(true);
+        setAuthError(err.code);
+        return err;
       }
     },
   });
+
+  const getClasses = (type) => {
+    const mapType = {
+      email: _.has(formik.errors, 'email') || authFailed,
+      password: _.has(formik.errors, 'password') || authFailed,
+    };
+    return cn('form-control', {
+      'is-invalid': mapType[type],
+    });
+  };
+
+  const getErrors = () => _.toPairs(formik.errors).map(([name, message]) => (<div key={name} className="invalid-feedback">{message}</div>));
 
   return (
     <div className="row justify-content-center align-content-center h-100">
       <div className="col-12 col-md-8 col-xxl-6">
         <div className="card shadow-sm">
           <div className="card-body row p-5">
-            <form className="w-100" onSubmit={formik.handleSubmit}>
+            <form className={`w-100${(!_.isEmpty(formik.errors) || authFailed) ? ' is-invalid-form' : ''}`} onSubmit={formik.handleSubmit}>
               <h1 className="text-center mb-4">Войти</h1>
               <div className="form-floating mb-3">
                 <input
-                  className="form-control"
+                  className={getClasses('email')}
                   type="email"
                   id="email"
                   name="email"
@@ -66,7 +85,7 @@ const LogInForm = ({ auth }) => {
               </div>
               <div className="form-floating mb-3">
                 <input
-                  className="form-control"
+                  className={getClasses('password')}
                   type="password"
                   id="password"
                   name="password"
@@ -77,8 +96,11 @@ const LogInForm = ({ auth }) => {
                   value={formik.values.password}
                 />
                 <label className="form-label" htmlFor="password">Пароль</label>
-                {/* {authFailed ? <Form.Control.Feedback type="invalid">{t('errors.unauthorized')}</Form.Control.Feedback> : null } */}
               </div>
+              {!_.isEmpty(formik.errors)
+                ? getErrors()
+                : null}
+              {authFailed ? <div className="invalid-feedback">{getAuthErrorText(authError)}</div> : null}
               <button
                 className="btn btn-primary"
                 type="submit"
@@ -86,7 +108,7 @@ const LogInForm = ({ auth }) => {
                 onClick={formik.handleSubmit}
                 disabled={formik.isSubmitting}
               >
-                Войти
+                {formik.isSubmitting ? <Spinner /> : "Вход"}
               </button>
             </form>
           </div>
@@ -107,7 +129,7 @@ const Login = () => {
 
   return (
     auth.user
-      ? <Navigate to="/todo" />
+      ? <Navigate to={TODO_ROUTE} />
       : <LogInForm auth={auth} />
   );
 };
