@@ -4,18 +4,18 @@ import * as yup from 'yup';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Navigate } from 'react-router-dom';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 import * as _ from 'lodash';
 import useAuth from '../../hooks/useAuth.jsx';
 import {
   REG_ROUTE, TODO_ROUTE,
 } from '../../utils/constants.js';
-import getAuthErrorText from '../../utils/utils.js';
 import Spinner from '../spinner/Spinner.jsx';
 
 const LogInForm = ({ auth }) => {
   const [authFailed, setAuthFailed] = useState(false);
   const [authError, setAuthError] = useState(false);
-
+  const { t } = useTranslation();
   const inputRef = useRef();
 
   useEffect(() => {
@@ -23,8 +23,8 @@ const LogInForm = ({ auth }) => {
   }, [inputRef]);
 
   const SigninSchema = yup.object({
-    email: yup.string().email('Некорректно введён адрес электронной почты').required('Почта - обязательное поле'),
-    password: yup.string().required('Пароль - обязательное поле'),
+    email: yup.string().email(t('errors.incorrectEmail')).required(t('errors.incorrectEmail')),
+    password: yup.string().required(t('errors.requiredEmail')),
   });
 
   const formik = useFormik({
@@ -67,7 +67,7 @@ const LogInForm = ({ auth }) => {
         <div className="card shadow-sm">
           <div className="card-body row p-5">
             <form className={`w-100${(!_.isEmpty(formik.errors) || authFailed) ? ' is-invalid-form' : ''}`} onSubmit={formik.handleSubmit}>
-              <h1 className="text-center mb-4">Войти</h1>
+              <h1 className="text-center mb-4">{t('loginPage.heading')}</h1>
               <div className="form-floating mb-3">
                 <input
                   className={getClasses('email')}
@@ -76,12 +76,12 @@ const LogInForm = ({ auth }) => {
                   name="email"
                   autoComplete="email"
                   required
-                  placeholder="Почта"
+                  placeholder={t('placeholders.email')}
                   onChange={formik.handleChange}
                   value={formik.values.email}
                   ref={inputRef}
                 />
-                <label className="form-label" htmlFor="email">Почта</label>
+                <label className="form-label" htmlFor="email">{t('label.email')}</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -91,16 +91,16 @@ const LogInForm = ({ auth }) => {
                   name="password"
                   autoComplete="current-password"
                   required
-                  placeholder="Пароль"
+                  placeholder={t('placeholders.password')}
                   onChange={formik.handleChange}
                   value={formik.values.password}
                 />
-                <label className="form-label" htmlFor="password">Пароль</label>
+                <label className="form-label" htmlFor="password">{t('label.password')}</label>
               </div>
               {!_.isEmpty(formik.errors)
                 ? getErrors()
                 : null}
-              {authFailed ? <div className="invalid-feedback">{getAuthErrorText(authError)}</div> : null}
+              {authFailed ? <div className="invalid-feedback">{t(`errors.${authError}`)}</div> : null}
               <button
                 className="btn btn-primary"
                 type="submit"
@@ -108,14 +108,14 @@ const LogInForm = ({ auth }) => {
                 onClick={formik.handleSubmit}
                 disabled={formik.isSubmitting}
               >
-                {formik.isSubmitting ? <Spinner /> : "Вход"}
+                {formik.isSubmitting ? <Spinner /> : t('buttons.login')}
               </button>
             </form>
           </div>
           <div className="card-footer">
             <div className="d-flex flex-column align-items-center">
-              <span className="small mb-2">Не зарегистрированы? </span>
-              <a href={REG_ROUTE}>Регистрация</a>
+              <span className="small mb-2">{t('loginPage.notReg')}</span>
+              <a href={REG_ROUTE}>{t('loginPage.urlToSignUp')}</a>
             </div>
           </div>
         </div>

@@ -5,17 +5,17 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Navigate } from 'react-router-dom';
 import cn from 'classnames';
 import * as _ from 'lodash';
+import { useTranslation } from 'react-i18next';
 import useAuth from '../../hooks/useAuth.jsx';
 import {
   LOGIN_ROUTE, TODO_ROUTE,
 } from '../../utils/constants.js';
-import getAuthErrorText from '../../utils/utils.js';
 import Spinner from '../spinner/Spinner.jsx';
 
 const SignUpForm = ({ auth }) => {
   const [authFailed, setAuthFailed] = useState(false);
   const [authError, setAuthError] = useState(false);
-
+  const { t } = useTranslation();
   const inputRef = useRef();
 
   useEffect(() => {
@@ -23,9 +23,9 @@ const SignUpForm = ({ auth }) => {
   }, [inputRef]);
 
   const SigninSchema = yup.object({
-    email: yup.string().email('Некорректно введён адрес электронной почты').required('Почта - обязательное поле'),
-    password: yup.string().required('Пароль - обязательное поле').min(6, 'Минимум 6 символов'),
-    chekpassword: yup.string().oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
+    email: yup.string().email(t('errors.incorrectEmail')).required(t('errors.incorrectEmail')),
+    password: yup.string().required(t('errors.requiredEmail')).min(6, t('errors.minPasswordLength')),
+    chekpassword: yup.string().oneOf([yup.ref('password'), null], t('errors.passMatch')),
   });
 
   const formik = useFormik({
@@ -69,7 +69,7 @@ const SignUpForm = ({ auth }) => {
         <div className="card shadow-sm">
           <div className="card-body row p-5">
             <form className={`w-100${(!_.isEmpty(formik.errors) || authFailed) ? ' is-invalid-form' : ''}`} onSubmit={formik.handleSubmit}>
-              <h1 className="text-center mb-4">Регистрация</h1>
+              <h1 className="text-center mb-4">{t('signupPage.heading')}</h1>
               <div className="form-floating mb-3">
                 <input
                   className={getClasses('email')}
@@ -78,12 +78,12 @@ const SignUpForm = ({ auth }) => {
                   name="email"
                   autoComplete="email"
                   required
-                  placeholder="Почта"
+                  placeholder={t('placeholders.email')}
                   onChange={formik.handleChange}
                   value={formik.values.email}
                   ref={inputRef}
                 />
-                <label className="form-label" htmlFor="email">Почта</label>
+                <label className="form-label" htmlFor="email">{t('label.email')}</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -93,11 +93,11 @@ const SignUpForm = ({ auth }) => {
                   name="password"
                   autoComplete="current-password"
                   required
-                  placeholder="Пароль"
+                  placeholder={t('placeholders.password')}
                   onChange={formik.handleChange}
                   value={formik.values.password}
                 />
-                <label className="form-label" htmlFor="password">Пароль</label>
+                <label className="form-label" htmlFor="password">{t('label.password')}</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -107,16 +107,16 @@ const SignUpForm = ({ auth }) => {
                   name="chekpassword"
                   autoComplete="current-password"
                   required
-                  placeholder="Подтверждение пароля"
+                  placeholder={t('placeholders.confirmpassword')}
                   onChange={formik.handleChange}
                   value={formik.values.chekpassword}
                 />
-                <label className="form-label" htmlFor="chekpassword">Подтверждение пароля</label>
+                <label className="form-label" htmlFor="chekpassword">{t('label.confirmpassword')}</label>
               </div>
               {!_.isEmpty(formik.errors)
                 ? getErrors()
                 : null}
-              {authFailed ? <div className="invalid-feedback">{getAuthErrorText(authError)}</div> : null}
+              {authFailed ? <div className="invalid-feedback">{t(`errors.${authError}`)}</div> : null}
               <button
                 className="btn btn-primary"
                 type="submit"
@@ -124,14 +124,14 @@ const SignUpForm = ({ auth }) => {
                 onClick={formik.handleSubmit}
                 disabled={formik.isSubmitting}
               >
-                {formik.isSubmitting ? <Spinner /> : "Зарегистрироваться и войти"}
+                {formik.isSubmitting ? <Spinner /> : t('buttons.signup')}
               </button>
             </form>
           </div>
           <div className="card-footer">
             <div className="d-flex flex-column align-items-center">
-              <span className="small mb-2">Уже зарегистрированы? </span>
-              <a href={LOGIN_ROUTE}>Войти</a>
+              <span className="small mb-2">{t('signupPage.alredyReg')}</span>
+              <a href={LOGIN_ROUTE}>{t('signupPage.urlToLogin')}</a>
             </div>
           </div>
         </div>
