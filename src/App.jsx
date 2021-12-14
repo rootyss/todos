@@ -4,6 +4,8 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
+  Outlet,
 } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
 import {
@@ -11,17 +13,23 @@ import {
   LOGIN_ROUTE,
   NOTE_ROUTE,
   REG_ROUTE,
+  INBOX_ROUTE,
+  TODAY_ROUTE,
+  UPCOMING_ROUTE,
 } from './utils/constants.js';
 import authContext from './context/authContext.js';
 import useAuth from './hooks/useAuth.jsx';
-
-import MainLayout from './components/mainLayout/MainLayout.jsx';
+import ContentWrapper from './components/contentWrapper/ContentWrapper.jsx';
 import NoMatch from './components/noMatch/NoMatch.jsx';
 import Login from './components/login/Login.jsx';
-import ToDo from './components/todo/ToDo.jsx';
 import Information from './components/information/Information.jsx';
 import Note from './components/note/Note.jsx';
 import SignUp from './components/signUp/SignUp.jsx';
+import Inbox from './components/inbox/Inbox.jsx';
+import ToDo from './components/todo/ToDo.jsx';
+import LeftMenu from './components/leftMenu/LeftMenu.jsx';
+import Today from './components/today/Today.jsx';
+import Upcoming from './components/upcoming/Upcoming.jsx';
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -49,28 +57,35 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-const PrivateRoute = ({ children }) => {
+const RequireAuth = () => {
   const auth = useAuth();
-  return auth.user ? children : <Navigate to={LOGIN_ROUTE} />;
+  const location = useLocation();
+  if (!auth.user) {
+    return <Navigate to={LOGIN_ROUTE} state={{ from: location }} />;
+  }
+  return (
+    <>
+      <LeftMenu />
+      <Outlet />
+    </>
+  );
 };
 
 const App = () => (
   <AuthProvider>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path={LOGIN_ROUTE} element={<Login />} />
-          <Route
-            path={TODO_ROUTE}
-            element={(
-              <PrivateRoute>
-                <ToDo />
-              </PrivateRoute>
-        )}
-          />
+        <Route element={<ContentWrapper />}>
+          <Route path="/" element={<Information />} />
           <Route path={REG_ROUTE} element={<SignUp />} />
-          <Route path={NOTE_ROUTE} element={<Note />} />
-          <Route index element={<Information />} />
+          <Route path={LOGIN_ROUTE} element={<Login />} />
+          <Route element={<RequireAuth />}>
+            <Route path={TODO_ROUTE} element={<ToDo />} />
+            <Route path={INBOX_ROUTE} element={<Inbox />} />
+            <Route path={TODAY_ROUTE} element={<Today />} />
+            <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
+            <Route path={NOTE_ROUTE} element={<Note />} />
+          </Route>
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
