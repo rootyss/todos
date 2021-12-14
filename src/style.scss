@@ -1,6 +1,9 @@
 @import "components/navbar/navbar.scss";
 @import "components/footer/footer.scss";
+@import "components/contentWrapper/contentWrapper.scss";
 @import "components/spinner/spinner.scss";
+@import "components/leftMenu/leftMenu.scss";
+@import "components/ToDo/todo.scss";
 
 $bs-gutter-x: 2rem;
 $main-font-family: 'Open Sans', sans-serif;
@@ -42,7 +45,7 @@ input, button, select, optgroup, textarea {
 }
 
 .bg-light {
-  background-color: #dce3e3;
+  background-color: #cbe5e9;
 }
 .d-flex {
   display: flex;
@@ -83,6 +86,11 @@ input, button, select, optgroup, textarea {
   padding-left: $bs-gutter-x;
   margin-right: auto;
   margin-left: auto;
+}
+.main-content-wrapper {
+  flex-grow: 1;
+  background-color: #fff;
+  margin-left: 220px;
 }
 .container-fluid {
   width: 100%;
@@ -251,9 +259,16 @@ btn-primary:disabled, .btn-primary.disabled {
   margin-right: 1.5rem;
   margin-left: 1.5rem;
 }
+.my-3 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 .my-5 {
   margin-top: 3rem;
   margin-bottom: 3rem;
+}
+.pt-3 {
+  padding-top: 1rem;
 }
 .pt-4 {
   padding-top: 1.5rem;
