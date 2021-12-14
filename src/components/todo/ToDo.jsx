@@ -1,7 +1,9 @@
 import React from 'react';
 
 const ToDo = () => (
-  <p>ToDo Page</p>
+  <div className="main-content-wrapper">
+    <h1>Todo</h1>
+  </div>
 );
 
 export default ToDo;

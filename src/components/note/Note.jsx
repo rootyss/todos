@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Note = () => (
-  <p>This is Note Page</p>
+  <div className="main-content-wrapper">
+    <h1>Note</h1>
+  </div>
 );
 
 export default Note;

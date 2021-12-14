@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import {
   TODO_ROUTE,
   LOGIN_ROUTE,
-  NOTE_ROUTE,
   REG_ROUTE,
   USER_PROFILE_ROUTE,
 } from '../../utils/constants.js';
@@ -15,15 +14,11 @@ const Navbar = () => {
   const { t } = useTranslation();
 
   return (
-    <nav className="bg-white shadow-sm navbar navbar-light">
+    <nav className="bg-light shadow-sm navbar navbar-light">
       <div className="container-fluid">
         <Link className="navbar-brand" to={TODO_ROUTE}>{t('logo.text')}</Link>
         <div className="navbar-collapse collapse">
-          <div className="container-fluid">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item"><Link className="nav-link" to={NOTE_ROUTE}>{t('mainMenu.note')}</Link></li>
-            </ul>
-          </div>
+          <div className="container-fluid" />
           <ul className="navbar-nav">
             {auth.user
               ? (
@@ -32,7 +27,7 @@ const Navbar = () => {
                     <Link className="nav-link" to={USER_PROFILE_ROUTE}>{auth.user.displayName ?? t('mainMenu.userAnonim')}</Link>
                   </li>
                   <li className="nav-item">
-                    <button type="button" className="btn btn-primary" onClick={() => auth.logOut()}>{t('button.logOut')}</button>
+                    <button type="button" className="btn btn-primary" onClick={() => auth.logOut()}>{t('buttons.logOut')}</button>
                   </li>
                 </>
               )

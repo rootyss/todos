@@ -2,21 +2,26 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Navigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import * as _ from 'lodash';
 import useAuth from '../../hooks/useAuth.jsx';
-import {
-  REG_ROUTE, TODO_ROUTE,
-} from '../../utils/constants.js';
+import { REG_ROUTE } from '../../utils/constants.js';
 import Spinner from '../spinner/Spinner.jsx';
 
-const LogInForm = ({ auth }) => {
+const Login = () => {
+  const auth = useAuth();
+
   const [authFailed, setAuthFailed] = useState(false);
   const [authError, setAuthError] = useState(false);
   const { t } = useTranslation();
   const inputRef = useRef();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { state } = location;
+  const from = state ? state.from.pathname : '/';
 
   useEffect(() => {
     inputRef.current.focus();
@@ -40,6 +45,7 @@ const LogInForm = ({ auth }) => {
         const { email, password } = values;
         const { user } = await signInWithEmailAndPassword(auth.authFirebase, email, password);
         auth.logIn(user);
+        navigate(from, { replace: true });
         return null;
       } catch (err) {
         setAuthFailed(true);
@@ -121,16 +127,6 @@ const LogInForm = ({ auth }) => {
         </div>
       </div>
     </div>
-  );
-};
-
-const Login = () => {
-  const auth = useAuth();
-
-  return (
-    auth.user
-      ? <Navigate to={TODO_ROUTE} />
-      : <LogInForm auth={auth} />
   );
 };
 
