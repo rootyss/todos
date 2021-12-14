@@ -24,12 +24,12 @@ export default {
       requiredPassword: 'Пароль - обязательное поле',
       minPasswordLength: 'Минимум 6 символов',
       passMatch: 'Пароли должны совпадать',
+      undefined: 'Неизвестная ошибка',
     },
     logo: {
       text: 'Менеджер задач',
     },
     mainMenu: {
-      note: 'Заметки',
       login: 'Вход',
       signup: 'Зарегистрироваться',
       userAnonim: 'Аноним',
@@ -44,6 +44,12 @@ export default {
       heading: 'Регистрация',
       alredyReg: 'Уже зарегистрированы?',
       urlToLogin: 'Войти',
+    },
+    leftMenuTop: {
+      inbox: 'Входящие',
+      today: 'Сегодня',
+      upcoming: 'Предстоящие',
+      notes: 'Заметки',
     },
   },
 };

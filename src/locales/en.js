@@ -24,12 +24,12 @@ export default {
       requiredPassword: 'Password - required field',
       minPasswordLength: 'Min 6 characters',
       passMatch: 'Passwords must match',
+      undefined: 'Undefined error',
     },
     logo: {
       text: 'Task manager',
     },
     mainMenu: {
-      note: 'Notes',
       login: 'LogIn',
       signup: 'SignUp',
       userAnonim: 'Anonymous',
@@ -44,6 +44,12 @@ export default {
       heading: 'SignUp',
       alredyReg: 'Already registered?',
       urlToLogin: 'LogIn',
+    },
+    leftMenuTop: {
+      inbox: 'Inbox',
+      today: 'Today',
+      upcoming: 'Upcoming',
+      notes: 'Notes',
     },
   },
 };
