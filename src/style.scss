@@ -1,11 +1,12 @@
+@import "./variables.scss";
 @import "components/navbar/navbar.scss";
 @import "components/footer/footer.scss";
 @import "components/contentWrapper/contentWrapper.scss";
 @import "components/spinner/spinner.scss";
 @import "components/leftMenu/leftMenu.scss";
 @import "components/ToDo/todo.scss";
+@import "components/task/task.scss";
 
-$bs-gutter-x: 2rem;
 $main-font-family: 'Open Sans', sans-serif;
 *, *::before, *::after {
   box-sizing: border-box;
@@ -20,9 +21,6 @@ label {
 }
 ul {
   margin-top: 0;
-}
-main {
-  height: 1px;
 }
 h1 {
   margin-top: 0;
@@ -40,12 +38,12 @@ input, button, select, optgroup, textarea {
 }
 .card-footer {
   padding: 0.5rem 1rem;
-  background-color: rgba(0,0,0,0.03);
+  background-color: $card-bg-color;
   border-top: 1px solid rgba(0,0,0,0.125);
 }
 
 .bg-light {
-  background-color: #cbe5e9;
+  background-color: $bg-light-color;
 }
 .d-flex {
   display: flex;
@@ -105,9 +103,9 @@ input, button, select, optgroup, textarea {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #879eb54a;
+  background-color: $card-bg-color;
   background-clip: border-box;
-  border: 1px solid #879eb50f;
+  border: 1px solid $card-border-color;
   border-radius: 0.3rem;
   flex-wrap: wrap;
 }
@@ -144,8 +142,8 @@ input, button, select, optgroup, textarea {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
-  background-color: #fff;
+  color: $form-text-color;
+  background-color: $form-bg-color;
   background-clip: padding-box;
   border: 1px solid #ced4da;
   appearance: none;
@@ -165,6 +163,66 @@ input, button, select, optgroup, textarea {
   border: 1px solid transparent;
   transform-origin: 0 0;
   transition: opacity 0.1s ease-in-out,transform 0.1s ease-in-out;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.inbox {
+  width: 100%;
+  padding: 2rem 5rem;
+  max-width: 800px;
+  align-self: center;
+}
+.view-header {
+  display: flex;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  h1 {
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: 900;
+    line-height: 25px;
+    overflow: hidden;
+  }
+}
+.view-header__content {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+.view-header__actions {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  color: #333;
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: grey;
+    border-radius: 3px;
+    padding: 3px 5px;
+    &:hover {
+      background-color: $actions-hover-bg-color;
+      color: $actions-hover-color;
+    }
+  }
+}
+.listbox {
+  margin: 0 auto;
+}
+.view-content {
+
+}
+.listbox-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 .form-label {
   margin-bottom: 0.5rem;
