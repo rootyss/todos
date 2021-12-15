@@ -51,5 +51,8 @@ export default {
       upcoming: 'Предстоящие',
       notes: 'Заметки',
     },
+    inbox: {
+      comments: 'Комментарии',
+    },
   },
 };
