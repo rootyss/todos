@@ -2,7 +2,9 @@ import React from 'react';
 
 const Today = () => (
   <div className="main-content-wrapper">
-    <h1>Today</h1>
+    <div className="content">
+      asdfsdf
+    </div>
   </div>
 );
 

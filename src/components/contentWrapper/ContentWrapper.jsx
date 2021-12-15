@@ -6,9 +6,9 @@ import Footer from '../footer/Footer.jsx';
 const ContentWrapper = () => (
   <>
     <Navbar />
-    <main className="content-wrapper">
+    <div className="content-wrapper">
       <Outlet />
-    </main>
+    </div>
     <Footer />
   </>
 );
