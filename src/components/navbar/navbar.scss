@@ -47,6 +47,12 @@
   align-items: center;
   justify-content: space-between;
 }
+.nav-item {
+  align-self: center;
+}
+.add-task-icon {
+  vertical-align: middle;
+}
 
 @media (min-width: 992px) {
   .navbar-collapse {
@@ -54,7 +60,14 @@
   flex-basis: auto;
 }
 .navbar-nav {
-  flex-direction: row
+  flex-direction: row;
+
+  .add-task {
+    
+    &:hover {
+      background-color: rgba(72,72,72,.1);
+    }
+  }
 }
 .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 0.5rem;
