@@ -4,6 +4,7 @@ export default {
       login: 'LogIn',
       signup: 'SignIn and LogIn',
       logOut: 'LogOut',
+      addTask: 'Add task',
     },
     label: {
       email: 'Email',

@@ -4,6 +4,7 @@ export default {
       login: 'Вход',
       signup: 'Зарегистрироваться и войти',
       logOut: 'Выход',
+      addTask: 'Добавить задачу',
     },
     label: {
       email: 'Почта',
