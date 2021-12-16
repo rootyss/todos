@@ -379,7 +379,12 @@ btn-primary:disabled, .btn-primary.disabled {
 .card-footer a:visited {
   color: #0d6efd;
 }
-
+.fade {
+  display: none;
+}
+.show {
+  display: block;
+}
 @media (min-width: 576px) {
   .container {
   max-width: 540px;
