@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal, getModalInfo } from '../../store/modalSlice.js';
-import ModalAddTask from './AddTask.jsx';
+import FastAddTask from './FastAddTask.jsx';
 
 const modals = {
-  addTask: ModalAddTask,
+  FastAddTask,
 };
 
 const ModalWindow = () => {
@@ -21,8 +21,8 @@ const ModalWindow = () => {
   const ModalComponent = modals[type];
 
   return (
-    <div>
-      <ModalComponent close={{ close }} />
+    <div className={isOpen ? 'show' : 'fade'}>
+      <ModalComponent close={close} />
     </div>
 
   );

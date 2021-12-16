@@ -25,7 +25,7 @@ const Navbar = () => {
               ? (
                 <>
                   <li className="nav-item">
-                    <button className="add-task"><img className="add-task-icon" src={AddTaskIcon} alt="Add task" /></button>
+                    <button type="button" className="add-task"><img className="add-task-icon" src={AddTaskIcon} alt="Add task" /></button>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to={USER_PROFILE_ROUTE}>{auth.user.displayName ?? t('mainMenu.userAnonim')}</Link>

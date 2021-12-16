@@ -1,14 +1,10 @@
 import React from 'react';
 
 const Task = ({
-  addedBbyUid,
-  assgnedByUid,
   content,
   dateAdded,
   dateCompleted,
-  dayOrder,
   description,
-  id,
   labels,
   prioroty,
 }) => (

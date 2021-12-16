@@ -1,9 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import Task from '../task/Task.jsx';
+import { openModal } from '../../store/modalSlice.js';
+import { modalTypes } from '../../utils/constants.js';
+import ModalWindow from '../modals/index.jsx';
 
 const Inbox = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const handleFastAddTask = () => dispatch(openModal({
+    type: modalTypes.fastAddTask,
+  }));
 
   const addedBbyUid = 123;
   const assgnedByUid = 123;
@@ -56,7 +65,8 @@ const Inbox = () => {
                   prioroty={prioroty}
                 />
               </ul>
-              <button type="button" className="add-task">{t('buttons.addTask')}</button>
+              <button onClick={handleFastAddTask} type="button" className="add-task">{t('buttons.fastAddTask')}</button>
+              <ModalWindow />
             </div>
           </main>
         </div>
