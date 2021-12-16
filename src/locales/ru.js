@@ -4,7 +4,9 @@ export default {
       login: 'Вход',
       signup: 'Зарегистрироваться и войти',
       logOut: 'Выход',
-      addTask: 'Добавить задачу',
+      fastAddTask: 'Быстрое добавление задачи',
+      create: 'Создать',
+      cancel: 'Отмена',
     },
     label: {
       email: 'Почта',

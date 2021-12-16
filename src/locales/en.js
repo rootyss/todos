@@ -4,7 +4,9 @@ export default {
       login: 'LogIn',
       signup: 'SignIn and LogIn',
       logOut: 'LogOut',
-      addTask: 'Add task',
+      fastAddTask: 'Quick add task',
+      create: 'Create',
+      cancel: 'Cancel',
     },
     label: {
       email: 'Email',
