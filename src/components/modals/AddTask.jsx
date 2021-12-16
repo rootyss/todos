@@ -20,9 +20,8 @@ const ModalAddTask = ({ close }) => {
     }),
     onSubmit: async (values) => {
       try {
-       close();
-      }
-      catch (err) {
+        close();
+      } catch (err) {
         console.log(err);
       }
     },
@@ -33,7 +32,9 @@ const ModalAddTask = ({ close }) => {
     textInput.current.select();
   }, []);
 
-  return ;
+  return (
+    <div />
+  );
 };
 
 export default ModalAddTask;

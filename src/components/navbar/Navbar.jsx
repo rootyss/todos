@@ -8,6 +8,7 @@ import {
   USER_PROFILE_ROUTE,
 } from '../../utils/constants.js';
 import useAuth from '../../hooks/useAuth.jsx';
+import AddTaskIcon from '../../../add.svg';
 
 const Navbar = () => {
   const auth = useAuth();
@@ -23,6 +24,9 @@ const Navbar = () => {
             {auth.user
               ? (
                 <>
+                  <li className="nav-item">
+                    <button className="add-task"><img className="add-task-icon" src={AddTaskIcon} alt="Add task" /></button>
+                  </li>
                   <li className="nav-item">
                     <Link className="nav-link" to={USER_PROFILE_ROUTE}>{auth.user.displayName ?? t('mainMenu.userAnonim')}</Link>
                   </li>

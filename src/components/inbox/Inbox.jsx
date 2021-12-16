@@ -24,7 +24,7 @@ const Inbox = () => {
             <div className="view-header__content">
               <h1>{t('leftMenuTop.inbox')}</h1>
               <div className="view-header__actions">
-                <a href="#">{t('inbox.comments')}</a>
+                <a href="404">{t('inbox.comments')}</a>
               </div>
             </div>
           </header>
@@ -56,6 +56,7 @@ const Inbox = () => {
                   prioroty={prioroty}
                 />
               </ul>
+              <button type="button" className="add-task">{t('buttons.addTask')}</button>
             </div>
           </main>
         </div>

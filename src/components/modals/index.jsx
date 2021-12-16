@@ -21,13 +21,10 @@ const ModalWindow = () => {
   const ModalComponent = modals[type];
 
   return (
-    <div role="dialog" aria-modal="true" className="fade modal" tabIndex="-1" style="display: block;">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <ModalComponent close={close} />
-        </div>
-      </div>
+    <div>
+      <ModalComponent close={{ close }} />
     </div>
+
   );
 };
 
