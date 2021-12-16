@@ -6,3 +6,7 @@ export const USER_PROFILE_ROUTE = '/user';
 export const INBOX_ROUTE = 'inbox';
 export const TODAY_ROUTE = 'today';
 export const UPCOMING_ROUTE = 'upcoming';
+
+export const modalTypes = {
+  fastAddTask: 'FastAddTask',
+};
