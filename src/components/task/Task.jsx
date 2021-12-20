@@ -5,8 +5,8 @@ const Task = ({
   dateAdded,
   dateCompleted,
   description,
-  labels,
-  prioroty,
+  labels = [],
+  priority,
 }) => (
   <li className="task-list-item">
     <div className="task-list-item__body">
@@ -30,7 +30,7 @@ const Task = ({
         <div className="task-list-item__infotags">
           <span className="control-tag">{dateAdded}</span>
           <span className="control-tag">{dateCompleted}</span>
-          <span className="control-tag">{prioroty}</span>
+          <span className={`control-tag priority-tag priority-tag-${priority}`}>{priority}</span>
           {labels.map((label) => <span key={label} className="control-tag">{label}</span>)}
         </div>
       </div>

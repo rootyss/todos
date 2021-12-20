@@ -1,29 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Task from '../task/Task.jsx';
-import { openModal } from '../../store/modalSlice.js';
+import { openModal, getModalInfo } from '../../store/modalSlice.js';
+import { getTasks } from '../../store/tasksSlice.js';
 import { modalTypes } from '../../utils/constants.js';
 import ModalWindow from '../modals/index.jsx';
 
 const Inbox = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const tasks = useSelector(getTasks);
+  const modalInfo = useSelector(getModalInfo);
+  const { type, isOpen } = modalInfo;
 
   const handleFastAddTask = () => dispatch(openModal({
     type: modalTypes.fastAddTask,
   }));
-
-  const addedBbyUid = 123;
-  const assgnedByUid = 123;
-  const content = 'Header';
-  const dateAdded = '2021-12-15';
-  const dateCompleted = null;
-  const dayOrder = 1;
-  const description = 'description';
-  const id = 1;
-  const labels = ['eat', 'kek'];
-  const prioroty = 4;
 
   return (
     <div className="main-content-wrapper">
@@ -40,32 +33,39 @@ const Inbox = () => {
           <main className="listbox">
             <div className="view-content">
               <ul className="listbox-list">
-                <Task
-                  addedBbyUid={addedBbyUid}
-                  assgnedByUid={assgnedByUid}
-                  content={content}
-                  dateAdded={dateAdded}
-                  dateCompleted={dateCompleted}
-                  dayOrder={dayOrder}
-                  description={description}
-                  id={id}
-                  labels={labels}
-                  prioroty={prioroty}
-                />
-                <Task
-                  addedBbyUid={addedBbyUid}
-                  assgnedByUid={assgnedByUid}
-                  content={content}
-                  dateAdded={dateAdded}
-                  dateCompleted={dateCompleted}
-                  dayOrder={dayOrder}
-                  description={description}
-                  id={id}
-                  labels={labels}
-                  prioroty={prioroty}
-                />
+                {tasks.map(({
+                  addedBbyUid,
+                  assgnedByUid,
+                  content,
+                  dateAdded,
+                  dateCompleted,
+                  dayOrder,
+                  description,
+                  id,
+                  labels,
+                  priority,
+                }) => (
+                  <Task
+                    key={id}
+                    addedBbyUid={addedBbyUid}
+                    assgnedByUid={assgnedByUid}
+                    content={content}
+                    dateAdded={dateAdded}
+                    dateCompleted={dateCompleted}
+                    dayOrder={dayOrder}
+                    description={description}
+                    id={id}
+                    labels={labels}
+                    priority={priority}
+                  />
+                ))}
               </ul>
-              <button onClick={handleFastAddTask} type="button" className="add-task">{t('buttons.fastAddTask')}</button>
+              {isOpen && type === modalTypes.fastAddTask
+                ? null
+                : (
+                  <button onClick={handleFastAddTask} type="button" className="add-task">{t('buttons.fastAddTask')}</button>
+                )}
+
               <ModalWindow />
             </div>
           </main>

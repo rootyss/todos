@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -30,6 +30,7 @@ import ToDo from './components/todo/ToDo.jsx';
 import LeftMenu from './components/leftMenu/LeftMenu.jsx';
 import Today from './components/today/Today.jsx';
 import Upcoming from './components/upcoming/Upcoming.jsx';
+import useApi from './hooks/useApi.jsx';
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -71,26 +72,32 @@ const RequireAuth = () => {
   );
 };
 
-const App = () => (
-  <AuthProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<ContentWrapper />}>
-          <Route path="/" element={<Information />} />
-          <Route path={REG_ROUTE} element={<SignUp />} />
-          <Route path={LOGIN_ROUTE} element={<Login />} />
-          <Route element={<RequireAuth />}>
-            <Route path={TODO_ROUTE} element={<ToDo />} />
-            <Route path={INBOX_ROUTE} element={<Inbox />} />
-            <Route path={TODAY_ROUTE} element={<Today />} />
-            <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
-            <Route path={NOTE_ROUTE} element={<Note />} />
+const App = () => {
+  const api = useApi();
+  useEffect(() => {
+    api.getTasks();
+  }, []);
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<ContentWrapper />}>
+            <Route path="/" element={<Information />} />
+            <Route path={REG_ROUTE} element={<SignUp />} />
+            <Route path={LOGIN_ROUTE} element={<Login />} />
+            <Route element={<RequireAuth />}>
+              <Route path={TODO_ROUTE} element={<ToDo />} />
+              <Route path={INBOX_ROUTE} element={<Inbox />} />
+              <Route path={TODAY_ROUTE} element={<Today />} />
+              <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
+              <Route path={NOTE_ROUTE} element={<Note />} />
+            </Route>
+            <Route path="*" element={<NoMatch />} />
           </Route>
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </AuthProvider>
-);
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+};
 
 export default App;
