@@ -5,7 +5,7 @@ export default {
       signup: 'SignIn and LogIn',
       logOut: 'LogOut',
       fastAddTask: 'Quick add task',
-      create: 'Create',
+      add: 'Add',
       cancel: 'Cancel',
     },
     label: {
@@ -17,6 +17,8 @@ export default {
       email: 'Email',
       password: 'Password',
       confirmpassword: 'Confirm password',
+      addTaskHeader: 'Task name',
+      addTaskDescription: 'Task description',
     },
     errors: {
       'auth/wrong-password': 'Wrong password',

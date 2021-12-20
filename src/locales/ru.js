@@ -5,7 +5,7 @@ export default {
       signup: 'Зарегистрироваться и войти',
       logOut: 'Выход',
       fastAddTask: 'Быстрое добавление задачи',
-      create: 'Создать',
+      add: 'Добавить',
       cancel: 'Отмена',
     },
     label: {
@@ -17,6 +17,8 @@ export default {
       email: 'Почта',
       password: 'Пароль',
       confirmpassword: 'Подтверждение пароля',
+      addTaskHeader: 'Название задачи',
+      addTaskDescription: 'Описание задачи',
     },
     errors: {
       'auth/wrong-password': 'Некорректный пароль',
