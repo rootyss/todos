@@ -1,18 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import {
+  modalTypes,
   TODO_ROUTE,
   LOGIN_ROUTE,
   REG_ROUTE,
   USER_PROFILE_ROUTE,
 } from '../../utils/constants.js';
+import { openModal } from '../../store/modalSlice.js';
 import useAuth from '../../hooks/useAuth.jsx';
 import AddTaskIcon from '../../../add.svg';
 
 const Navbar = () => {
   const auth = useAuth();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const handleFullAddTask = () => dispatch(openModal({
+    type: modalTypes.fullAddTask,
+  }));
 
   return (
     <nav className="bg-light shadow-sm navbar navbar-light">
@@ -25,7 +33,7 @@ const Navbar = () => {
               ? (
                 <>
                   <li className="nav-item">
-                    <button type="button" className="add-task"><img className="add-task-icon" src={AddTaskIcon} alt="Add task" /></button>
+                    <button onClick={handleFullAddTask} type="button" className="add-task"><img className="add-task-icon" src={AddTaskIcon} alt="Add task" /></button>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to={USER_PROFILE_ROUTE}>{auth.user.displayName ?? t('mainMenu.userAnonim')}</Link>
