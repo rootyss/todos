@@ -3,10 +3,10 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../spinner/Spinner.jsx';
-import { getFormatedDate } from '../../utils/utils.js';
 import useApi from '../../hooks/useApi.jsx';
+import Modal from './Modal.jsx';
 
-const FastAddTask = ({ close }) => {
+const FastAddTaskForm = ({ close }) => {
   const { t } = useTranslation();
   const api = useApi();
 
@@ -21,10 +21,10 @@ const FastAddTask = ({ close }) => {
       description: Yup.string().trim(),
     }),
     onSubmit: async (values) => {
+      const date = new Date();
       try {
-        const today = getFormatedDate(new Date(), '-');
         api.addTaskToFirebase({
-          ...values, dateAdded: today, dateCompleted: null, priority: 1,
+          ...values, dateAdded: `${date}`, dateCompleted: `${date}`, priority: 1, isCompleted: false, labels: ['lab1', 'lab2', 'lab3'],
         });
         close();
       } catch (err) {
@@ -76,13 +76,28 @@ const FastAddTask = ({ close }) => {
           className="btn btn-primary"
           type="submit"
           variant="primary"
-          onClick={close}
+          onClick={(e) => { e.stopPropagation(); close(); }}
           disabled={formik.isSubmitting}
         >
           {t('buttons.cancel')}
         </button>
       </div>
     </form>
+  );
+};
+
+const FastAddTask = ({ close }) => {
+  const { t } = useTranslation();
+  return (
+    <Modal close={close}>
+      <Modal.Header>
+        <Modal.Header.H>{t('modals.addTaskHeader')}</Modal.Header.H>
+        <Modal.Header.ButtonClose close={close} />
+      </Modal.Header>
+      <Modal.Body>
+        <FastAddTaskForm close={close} />
+      </Modal.Body>
+    </Modal>
   );
 };
 
