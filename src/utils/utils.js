@@ -1,6 +1,7 @@
 export const getFormatedDate = (date, sep) => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
+  const currentDate = new Date(date);
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
+  const day = currentDate.getDate();
   return [year, month, day].join(sep);
 };
