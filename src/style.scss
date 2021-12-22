@@ -27,6 +27,7 @@ h1 {
   font-weight: 600;
   line-height: 1.2;
 }
+
 button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
   cursor: pointer;
 }
@@ -320,6 +321,13 @@ btn-primary:disabled, .btn-primary.disabled {
 .align-content-center {
   align-content: center;
 }
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@import "components/modals/modals.scss";
+
 .justify-content-center {
   justify-content: center;
 }
@@ -384,7 +392,7 @@ btn-primary:disabled, .btn-primary.disabled {
   display: none;
 }
 .show {
-  display: block;
+  display: flex;
 }
 .form-fast-add-task {
   display: flex;
@@ -396,11 +404,13 @@ btn-primary:disabled, .btn-primary.disabled {
 .add-task-field {
   width: 100%;
   resize: none;
-  outline: none;
+  outline-color: #d5d5d5;
   border-color: #d9d8d8;
 }
+
 .priority-tag {
-  padding: 2px 5px;
+  padding: 1px 6px;
+  border-radius: 4px;
 }
 .priority-tag-1 {
   background-color: #bae073;
@@ -414,6 +424,7 @@ btn-primary:disabled, .btn-primary.disabled {
 .priority-tag-4 {
   background-color: #f67077;
 }
+
 @media (min-width: 576px) {
   .container {
   max-width: 540px;

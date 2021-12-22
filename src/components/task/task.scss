@@ -1,17 +1,23 @@
 .task-list-item {
-	border-bottom: 1px solid $task-border-color;
-	position: relative;
+  padding: 0 7px;
+  border-bottom: 1px solid $task-border-color;
+  position: relative;
+  list-style: none;
+  &:hover {
+    background-color: #efefef;
+    border-radius: 5px;
+  }
 }
 .task-list-item__body {
-	display: flex;
-	align-items: stretch;
-	cursor: pointer;
+  display: flex;
+  align-items: stretch;
+  cursor: pointer;
 }
 .task-checkbox {
-	display: flex;
-	flex-shrink: 0;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
   font-family: inherit;
   font-size: 13px;
   text-decoration: none;
@@ -21,39 +27,39 @@
   padding: 0;
   margin-right: 8px;  
 
-	.task_checkbox__circle {
-		height: 16px;
-		width: 16px;
-		border: 1px solid $circle-border-color;
-		border-radius: 50%;
-		overflow: hidden;
-	}
-	svg {
-		display: inline-block;
-    border: 1px solid transparent;
-    height: 16px;
-    width: 16px;
-    margin-left: -1px;
-    transition: opacity .15s cubic-bezier(.4,0,1,1);
-    margin-top: -1px;
-    pointer-events: none;
-    opacity: 0;
-	}
-	&:hover svg {
-		opacity: 1;
-	}
+    .task_checkbox__circle {
+      height: 16px;
+      width: 16px;
+      border: 1px solid $circle-border-color;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    svg {
+      display: inline-block;
+      border: 1px solid transparent;
+      height: 16px;
+      width: 16px;
+      margin-left: -1px;
+      transition: opacity .15s cubic-bezier(.4,0,1,1);
+      margin-top: -1px;
+      pointer-events: none;
+      opacity: 0;
+    }
+      &:hover svg {
+        opacity: 1;
+      }
 }
 .task_checkbox__circle {
-	background-color: transparent;
-	border-color: grey;
-	color: grey;
-		&:hover {
-		background-color: hsla(0, 0%, 50%, .2);
-	}
+    background-color: transparent;
+    border-color: grey;
+    color: grey;
+        &:hover {
+        background-color: hsla(0, 0%, 50%, .2);
+    }
 }
 .task-list-item__content {
-	flex: 1;
-	padding: 8px 0;
+    flex: 1;
+    padding: 8px;
 }
 .task-list-item__content__wrapper {
     display: flex;
@@ -78,6 +84,40 @@
     overflow: hidden;
 }
 .control-tag {
-	margin: 0 2px;
-	font-size: 11px;
+    margin: 0 2px;
+    font-size: 11px;
+}
+.task-details {
+  padding: 5px 0;
+}
+.task-details--buttons {
+  display: flex;
+}
+.task-tab {
+  border: none;
+  background-color: transparent;
+  transition-property: box-shadow,border;
+  transition-duration: .3s;
+  transition-timing-function: ease;
+}
+
+.task-details-button {
+  flex: 1;
+  padding: 9px 0;
+  line-height: 1em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: gray;
+  border-bottom: 1px solid #2020206e;
+  text-align: center;
+
+  &:hover {
+    font-weight: bold;
+    color: black;
+  }
+}
+.task-details-button--active {
+  font-weight: bold;
+  color: black;
+  border-bottom: 1px solid black;
 }
