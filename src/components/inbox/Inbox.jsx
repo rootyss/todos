@@ -17,6 +17,10 @@ const Inbox = () => {
   const handleFastAddTask = () => dispatch(openModal({
     type: modalTypes.fastAddTask,
   }));
+  const handleViewTask = (taskId) => () => dispatch(openModal({
+    type: modalTypes.fullTask,
+    taskId,
+  }));
 
   return (
     <div className="main-content-wrapper">
@@ -35,7 +39,7 @@ const Inbox = () => {
               <ul className="listbox-list">
                 {tasks.map(({
                   addedBbyUid,
-                  assgnedByUid,
+                  assignedByUid,
                   content,
                   dateAdded,
                   dateCompleted,
@@ -45,19 +49,21 @@ const Inbox = () => {
                   labels,
                   priority,
                 }) => (
-                  <Task
-                    key={id}
-                    addedBbyUid={addedBbyUid}
-                    assgnedByUid={assgnedByUid}
-                    content={content}
-                    dateAdded={dateAdded}
-                    dateCompleted={dateCompleted}
-                    dayOrder={dayOrder}
-                    description={description}
-                    id={id}
-                    labels={labels}
-                    priority={priority}
-                  />
+                  <li key={id} className="task-list-item">
+                    <Task
+                      handleViewTask={handleViewTask(id)}
+                      addedBbyUid={addedBbyUid}
+                      assignedByUid={assignedByUid}
+                      content={content}
+                      dateAdded={dateAdded}
+                      dateCompleted={dateCompleted}
+                      dayOrder={dayOrder}
+                      description={description}
+                      id={id}
+                      labels={labels}
+                      priority={priority}
+                    />
+                  </li>
                 ))}
               </ul>
               {isOpen && type === modalTypes.fastAddTask
