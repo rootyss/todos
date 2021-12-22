@@ -11,6 +11,8 @@ export const FIREBASE_TASKS_ROUTE = 'tasks/';
 
 export const modalTypes = {
   fastAddTask: 'FastAddTask',
+  fullTask: 'FullTask',
+  fullAddTask: 'FullAddTask',
 };
 
 export const firebaseConfig = {
