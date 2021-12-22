@@ -4,7 +4,7 @@ export default {
       login: 'Вход',
       signup: 'Зарегистрироваться и войти',
       logOut: 'Выход',
-      fastAddTask: 'Быстрое добавление задачи',
+      fastAddTask: 'Добавить задачу',
       add: 'Добавить',
       cancel: 'Отмена',
     },
@@ -58,6 +58,13 @@ export default {
     },
     inbox: {
       comments: 'Комментарии',
+    },
+    modals: {
+      sub_tasks: 'Подзадачи',
+      comments: 'Комментарии',
+      activity: 'Активность',
+      addTaskHeader: 'Добавить задачу',
+      fullTaskHeader: 'Информация по задаче',
     },
   },
 };

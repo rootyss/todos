@@ -4,7 +4,7 @@ export default {
       login: 'LogIn',
       signup: 'SignIn and LogIn',
       logOut: 'LogOut',
-      fastAddTask: 'Quick add task',
+      fastAddTask: 'Add task',
       add: 'Add',
       cancel: 'Cancel',
     },
@@ -58,6 +58,13 @@ export default {
     },
     inbox: {
       comments: 'Comments',
+    },
+    modals: {
+      sub_tasks: 'Sub-tasks',
+      comments: 'Comments',
+      activity: 'Activity',
+      addTaskHeader: 'Add task',
+      fullTaskHeader: 'Task information',
     },
   },
 };
