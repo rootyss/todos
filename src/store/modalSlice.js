@@ -5,11 +5,12 @@ const modalSlice = createSlice({
   initialState: {
     isOpen: false,
     type: null,
+    currentTaskId: null,
   },
   reducers: {
     openModal(state, action) {
-      const { type } = action.payload;
-      return { isOpen: true, type };
+      const { type, taskId } = action.payload;
+      return { isOpen: true, type, currentTaskId: taskId };
     },
 
     closeModal() {
