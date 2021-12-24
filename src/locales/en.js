@@ -19,6 +19,8 @@ export default {
       confirmpassword: 'Confirm password',
       addTaskHeader: 'Task name',
       addTaskDescription: 'Task description',
+      labls: 'Labels',
+      addLabels: 'Comma separated labels',
     },
     errors: {
       'auth/wrong-password': 'Wrong password',
@@ -55,6 +57,7 @@ export default {
       today: 'Today',
       upcoming: 'Upcoming',
       notes: 'Notes',
+      labels: 'Labels',
     },
     inbox: {
       comments: 'Comments',
@@ -65,6 +68,9 @@ export default {
       activity: 'Activity',
       addTaskHeader: 'Add task',
       fullTaskHeader: 'Task information',
+    },
+    labelsPage: {
+      header: 'You labels',
     },
   },
 };

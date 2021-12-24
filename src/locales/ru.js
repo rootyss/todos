@@ -19,6 +19,8 @@ export default {
       confirmpassword: 'Подтверждение пароля',
       addTaskHeader: 'Название задачи',
       addTaskDescription: 'Описание задачи',
+      labls: 'Метки',
+      addLabels: 'Метки, разделенные запятыми',
     },
     errors: {
       'auth/wrong-password': 'Некорректный пароль',
@@ -55,6 +57,7 @@ export default {
       today: 'Сегодня',
       upcoming: 'Предстоящие',
       notes: 'Заметки',
+      labels: 'Метки',
     },
     inbox: {
       comments: 'Комментарии',
@@ -65,6 +68,9 @@ export default {
       activity: 'Активность',
       addTaskHeader: 'Добавить задачу',
       fullTaskHeader: 'Информация по задаче',
+    },
+    labelsPage: {
+      header: 'Ваши метки',
     },
   },
 };
