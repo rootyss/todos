@@ -5,7 +5,6 @@ import Task from '../task/Task.jsx';
 import { openModal, getModalInfo } from '../../store/modalSlice.js';
 import { getTasks } from '../../store/tasksSlice.js';
 import { modalTypes } from '../../utils/constants.js';
-import ModalWindow from '../modals/index.jsx';
 
 const Inbox = () => {
   const { t } = useTranslation();
@@ -25,7 +24,7 @@ const Inbox = () => {
   return (
     <div className="main-content-wrapper">
       <div className="content">
-        <div className="inbox">
+        <div className="page">
           <header className="view-header">
             <div className="view-header__content">
               <h1>{t('leftMenuTop.inbox')}</h1>
@@ -71,8 +70,6 @@ const Inbox = () => {
                 : (
                   <button onClick={handleFastAddTask} type="button" className="add-task">{t('buttons.fastAddTask')}</button>
                 )}
-
-              <ModalWindow />
             </div>
           </main>
         </div>

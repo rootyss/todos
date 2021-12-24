@@ -24,7 +24,7 @@ const FastAddTaskForm = ({ close }) => {
       const date = new Date();
       try {
         api.addTaskToFirebase({
-          ...values, dateAdded: `${date}`, dateCompleted: `${date}`, priority: 1, isCompleted: false, labels: ['lab1', 'lab2', 'lab3'],
+          ...values, dateAdded: `${date}`, dateCompleted: `${date}`, priority: 1, isCompleted: false, labels: [],
         });
         close();
       } catch (err) {
