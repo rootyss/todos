@@ -8,6 +8,8 @@ export const TODAY_ROUTE = 'today';
 export const UPCOMING_ROUTE = 'upcoming';
 export const URL_DATABASE = 'https://todos-c6f25-default-rtdb.asia-southeast1.firebasedatabase.app';
 export const FIREBASE_TASKS_ROUTE = 'tasks/';
+export const LABELS_ROUTE = 'labels';
+export const FIREBASE_LABELS_ROUTE = 'labels/';
 
 export const modalTypes = {
   fastAddTask: 'FastAddTask',
