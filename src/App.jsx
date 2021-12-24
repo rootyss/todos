@@ -16,6 +16,7 @@ import {
   INBOX_ROUTE,
   TODAY_ROUTE,
   UPCOMING_ROUTE,
+  LABELS_ROUTE,
 } from './utils/constants.js';
 import authContext from './context/authContext.js';
 import useAuth from './hooks/useAuth.jsx';
@@ -24,6 +25,7 @@ import NoMatch from './components/noMatch/NoMatch.jsx';
 import Login from './components/login/Login.jsx';
 import Information from './components/information/Information.jsx';
 import Note from './components/note/Note.jsx';
+import Labels from './components/labels/Labels.jsx';
 import SignUp from './components/signUp/SignUp.jsx';
 import Inbox from './components/inbox/Inbox.jsx';
 import ToDo from './components/todo/ToDo.jsx';
@@ -31,6 +33,7 @@ import LeftMenu from './components/leftMenu/LeftMenu.jsx';
 import Today from './components/today/Today.jsx';
 import Upcoming from './components/upcoming/Upcoming.jsx';
 import useApi from './hooks/useApi.jsx';
+import ModalWindow from './components/modals/index.jsx';
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -47,9 +50,11 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const getUserUid = () => user.uid;
+
   const memoValues = useMemo(() => ({
-    user, logIn, logOut, authFirebase,
-  }), [user, logIn, logOut]);
+    user, logIn, logOut, authFirebase, getUserUid,
+  }), [user, logIn, logOut, getUserUid]);
 
   return (
     <authContext.Provider value={memoValues}>
@@ -61,6 +66,12 @@ const AuthProvider = ({ children }) => {
 const RequireAuth = () => {
   const auth = useAuth();
   const location = useLocation();
+  const api = useApi();
+
+  useEffect(() => {
+    api.getUserData(auth.getUserUid());
+  }, []);
+
   if (!auth.user) {
     return <Navigate to={LOGIN_ROUTE} state={{ from: location }} />;
   }
@@ -72,32 +83,28 @@ const RequireAuth = () => {
   );
 };
 
-const App = () => {
-  const api = useApi();
-  useEffect(() => {
-    api.getTasks();
-  }, []);
-  return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<ContentWrapper />}>
-            <Route path="/" element={<Information />} />
-            <Route path={REG_ROUTE} element={<SignUp />} />
-            <Route path={LOGIN_ROUTE} element={<Login />} />
-            <Route element={<RequireAuth />}>
-              <Route path={TODO_ROUTE} element={<ToDo />} />
-              <Route path={INBOX_ROUTE} element={<Inbox />} />
-              <Route path={TODAY_ROUTE} element={<Today />} />
-              <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
-              <Route path={NOTE_ROUTE} element={<Note />} />
-            </Route>
-            <Route path="*" element={<NoMatch />} />
+const App = () => (
+  <AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<ContentWrapper />}>
+          <Route path="/" element={<Information />} />
+          <Route path={REG_ROUTE} element={<SignUp />} />
+          <Route path={LOGIN_ROUTE} element={<Login />} />
+          <Route element={<RequireAuth />}>
+            <Route path={TODO_ROUTE} element={<ToDo />} />
+            <Route path={INBOX_ROUTE} element={<Inbox />} />
+            <Route path={TODAY_ROUTE} element={<Today />} />
+            <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
+            <Route path={NOTE_ROUTE} element={<Note />} />
+            <Route path={LABELS_ROUTE} element={<Labels />} />
           </Route>
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-  );
-};
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    <ModalWindow />
+  </AuthProvider>
+);
 
 export default App;
