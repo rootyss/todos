@@ -17,8 +17,18 @@ import {
   FIREBASE_TASKS_ROUTE,
   FIREBASE_LABELS_ROUTE,
 } from './utils/constants.js';
-import { addTaskToState } from './store/tasksSlice.js';
-import { addLabelToState } from './store/labelsSlice.js';
+import {
+  addTaskToState,
+  pending as tasksPending,
+  fulfilled as tasksFulfilled,
+  rejected as tasksRejected,
+} from './store/tasksSlice.js';
+import {
+  addLabelToState,
+  pending as labelsPending,
+  fulfilled as labelsFulfilled,
+  rejected as labelsRejected,
+} from './store/labelsSlice.js';
 
 export default async (instanceApp) => {
   const i18n = i18next.createInstance();
@@ -40,24 +50,39 @@ export default async (instanceApp) => {
 
     const addLabelToFirebase = (label) => push(labelsRef, label);
 
-    const getUserData = (uid) => {
-      const userLabelsRef = query(labelsRef, orderByChild("userUid"), equalTo(uid));
+    const getUserTasks = (uid) => {
       const userTasksRef = query(tasksRef, orderByChild("addedByUid"), equalTo(uid));
+
+      dispatch(tasksPending());
 
       onValue(userTasksRef, (snap) => {
         const tasks = snap.val();
+
         dispatch(addTaskToState({ tasks }));
+        dispatch(tasksFulfilled());
+      }, () => {
+        dispatch(tasksRejected());
       });
+    };
+
+    const getUserLabels = (uid) => {
+      const userLabelsRef = query(labelsRef, orderByChild("userUid"), equalTo(uid));
+
+      dispatch(labelsPending());
+
       onValue(userLabelsRef, (snap) => {
         const data = snap.val();
-        const dataValues = _.values(data);
-        const labels = dataValues.map(({ label }) => label);
+        const dataEntries = _.toPairs(data);
+        const labels = dataEntries.map(([key, { label }]) => ({ key, label }));
         dispatch(addLabelToState({ labels }));
+        dispatch(labelsFulfilled());
+      }, () => {
+        dispatch(labelsRejected());
       });
     };
 
     const memoValues = useMemo(() => ({
-      addTaskToFirebase, getUserData, addLabelToFirebase,
+      addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase,
     }), [addTaskToFirebase, addLabelToFirebase]);
 
     return (
