@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import Task from '../task/Task.jsx';
 import { openModal, getModalInfo } from '../../store/modalSlice.js';
-import { getTasks } from '../../store/tasksSlice.js';
+import { getTasks, getFetchingStateTasks } from '../../store/tasksSlice.js';
 import { modalTypes } from '../../utils/constants.js';
 
 const Inbox = () => {
@@ -12,6 +12,8 @@ const Inbox = () => {
   const tasks = useSelector(getTasks);
   const modalInfo = useSelector(getModalInfo);
   const { type, isOpen } = modalInfo;
+  const fetchingTasksState = useSelector(getFetchingStateTasks);
+  const isRenderTasks = fetchingTasksState === 'finished';
 
   const handleFastAddTask = () => dispatch(openModal({
     type: modalTypes.fastAddTask,
@@ -35,36 +37,39 @@ const Inbox = () => {
           </header>
           <main className="listbox">
             <div className="view-content">
-              <ul className="listbox-list">
-                {tasks.map(({
-                  addedBbyUid,
-                  assignedByUid,
-                  content,
-                  dateAdded,
-                  dateCompleted,
-                  dayOrder,
-                  description,
-                  id,
-                  labels,
-                  priority,
-                }) => (
-                  <li key={id} className="task-list-item">
-                    <Task
-                      handleViewTask={handleViewTask(id)}
-                      addedBbyUid={addedBbyUid}
-                      assignedByUid={assignedByUid}
-                      content={content}
-                      dateAdded={dateAdded}
-                      dateCompleted={dateCompleted}
-                      dayOrder={dayOrder}
-                      description={description}
-                      id={id}
-                      labels={labels}
-                      priority={priority}
-                    />
-                  </li>
-                ))}
-              </ul>
+              {isRenderTasks ? (
+                <ul className="listbox-list">
+                  {tasks.map(({
+                    addedBbyUid,
+                    assignedByUid,
+                    content,
+                    dateAdded,
+                    dateCompleted,
+                    dayOrder,
+                    description,
+                    id,
+                    labels,
+                    priority,
+                  }) => (
+                    <li key={id} className="task-list-item">
+                      <Task
+                        handleViewTask={handleViewTask(id)}
+                        addedBbyUid={addedBbyUid}
+                        assignedByUid={assignedByUid}
+                        content={content}
+                        dateAdded={dateAdded}
+                        dateCompleted={dateCompleted}
+                        dayOrder={dayOrder}
+                        description={description}
+                        id={id}
+                        labels={labels}
+                        priority={priority}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )
+                : <div>Loading</div>}
               {isOpen && type === modalTypes.fastAddTask
                 ? null
                 : (
