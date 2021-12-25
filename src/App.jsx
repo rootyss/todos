@@ -34,6 +34,7 @@ import Today from './components/today/Today.jsx';
 import Upcoming from './components/upcoming/Upcoming.jsx';
 import useApi from './hooks/useApi.jsx';
 import ModalWindow from './components/modals/index.jsx';
+import LabelSearch from './components/labelSearch/LabelSearch.jsx';
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -69,7 +70,9 @@ const RequireAuth = () => {
   const api = useApi();
 
   useEffect(() => {
-    api.getUserData(auth.getUserUid());
+    if (!auth.user) return;
+    api.getUserTasks(auth.getUserUid());
+    api.getUserLabels(auth.getUserUid());
   }, []);
 
   if (!auth.user) {
@@ -97,7 +100,9 @@ const App = () => (
             <Route path={TODAY_ROUTE} element={<Today />} />
             <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
             <Route path={NOTE_ROUTE} element={<Note />} />
-            <Route path={LABELS_ROUTE} element={<Labels />} />
+            <Route path={LABELS_ROUTE} element={<Labels />}>
+              <Route path=":labelId" element={<LabelSearch />} />
+            </Route>
           </Route>
           <Route path="*" element={<NoMatch />} />
         </Route>
