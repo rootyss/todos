@@ -233,13 +233,28 @@ input, button, select, optgroup, textarea {
 .listbox {
   margin: 0 auto;
 }
-.view-content {
-
-}
 .listbox-list {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+.labels-list {
+  padding: 5px;
+  .control-tag {
+    font-size: 0.8rem;
+  }
+}
+.label-link {
+  padding: 3px 5px;
+  text-decoration: none;
+  color: inherit;
+  background-color: #cdcdcd;
+  border-radius: 5px;
+  &:hover {
+    color: #5454e3;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
 }
 .form-label {
   margin-bottom: 0.5rem;
