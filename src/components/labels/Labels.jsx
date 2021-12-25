@@ -1,10 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { useSelector } from 'react-redux';
+import { Outlet } from "react-router-dom";
 import * as Yup from 'yup';
 import useAuth from '../../hooks/useAuth.jsx';
 import useApi from '../../hooks/useApi.jsx';
 import Spinner from '../spinner/Spinner.jsx';
+import { getLabels } from '../../store/labelsSlice.js';
+import Label from '../label/Label.jsx';
 
 const Labels = () => {
   const { t } = useTranslation();
@@ -12,6 +16,7 @@ const Labels = () => {
   const userUid = auth.getUserUid();
   const api = useApi();
   const textArea = useRef(null);
+  const labelsUser = useSelector(getLabels);
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +51,9 @@ const Labels = () => {
           <header className="view-header border-bottom">
             <h1>{t('labelsPage.header')}</h1>
           </header>
-          <div className="labels-list" />
+          <div className="labels-list">
+            {labelsUser.map(({ label }) => <Label key={label} label={label} />)}
+          </div>
           <form>
             <textarea
               className="add-task-field"
@@ -70,6 +77,8 @@ const Labels = () => {
               </button>
             </div>
           </form>
+
+          <Outlet />
         </div>
       </div>
     </div>
