@@ -27,7 +27,9 @@ h1 {
   font-weight: 600;
   line-height: 1.2;
 }
-
+h4 {
+  margin: 0;
+}
 button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
   cursor: pointer;
 }
@@ -253,8 +255,31 @@ input, button, select, optgroup, textarea {
   &:hover {
     color: #5454e3;
     font-weight: bold;
-    font-size: 0.8rem;
   }
+}
+.label-item {
+  padding: 3px 5px;
+  color: inherit;
+  background-color: #cdcdcd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.label-search {
+  margin-right: 10px;
+  color: #333;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.current-labels-list {
+  margin-bottom: 8px;
+}
+.current-label {
+  margin: 0 3px;
+  background-color: #849581;
+}
+.label-item-disabled {
+  cursor: default;
+  background-color: #ff8d8d;
 }
 .form-label {
   margin-bottom: 0.5rem;
@@ -422,21 +447,27 @@ btn-primary:disabled, .btn-primary.disabled {
   outline-color: #d5d5d5;
   border-color: #d9d8d8;
 }
-
+.form-fast-add-task-buttons {
+  .btn {
+    &:first-child {
+      margin-right: 7px;
+    }
+  }
+}
 .priority-tag {
-  padding: 1px 6px;
+  padding: 9px 6px;
   border-radius: 4px;
 }
-.priority-tag-1 {
+.priority-tag-4 {
   background-color: #bae073;
 }
-.priority-tag-2 {
+.priority-tag-3 {
   background-color: #91d2f0;
 }
-.priority-tag-3 {
+.priority-tag-2 {
   background-color: #fcf04e;
 }
-.priority-tag-4 {
+.priority-tag-1 {
   background-color: #f67077;
 }
 
