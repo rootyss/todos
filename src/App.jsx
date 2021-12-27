@@ -107,8 +107,8 @@ const App = () => (
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
+      <ModalWindow />
     </BrowserRouter>
-    <ModalWindow />
   </AuthProvider>
 );
 
