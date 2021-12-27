@@ -54,7 +54,7 @@ const Labels = () => {
           <div className="labels-list">
             {labelsUser.map(({ label }) => <Label key={label} label={label} />)}
           </div>
-          <form>
+          <form className="mb-3">
             <textarea
               className="add-task-field"
               type="text"
