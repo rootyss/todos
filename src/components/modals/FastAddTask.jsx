@@ -76,7 +76,7 @@ const FastAddTaskForm = ({ close }) => {
           className="btn btn-primary"
           type="submit"
           variant="primary"
-          onClick={(e) => { e.stopPropagation(); close(); }}
+          onClick={close}
           disabled={formik.isSubmitting}
         >
           {t('buttons.cancel')}

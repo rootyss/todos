@@ -33,7 +33,7 @@ const Task = ({
         <span className="control-tag">{getFormatedDate(dateAdded, '-')}</span>
         <span className="control-tag">{getFormatedDate(dateCompleted, '-')}</span>
         <span className={`control-tag priority-tag priority-tag-${priority}`} />
-        {labels.map((label) => <Label key={label} label={label} />)}
+        <div className="d-flex" onClick={(e) => e.stopPropagation()}>{labels.map(({ key, label }) => <Label key={key} label={label} />)}</div>
       </div>
     </div>
   </div>

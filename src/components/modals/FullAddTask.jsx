@@ -1,41 +1,63 @@
 import React, { useRef, useEffect } from 'react';
+import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
+import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import Spinner from '../spinner/Spinner.jsx';
 import useApi from '../../hooks/useApi.jsx';
 import useAuth from '../../hooks/useAuth.jsx';
 import Modal from './Modal.jsx';
+import {
+  getLabels, getCurrentLabels, addCurrentLabels, clearCurrentLabelsState,
+} from '../../store/labelsSlice.js';
+
+const Label = ({ id, label, handleAddCurrentLabel }) => {
+  const currentLabels = useSelector(getCurrentLabels);
+  const isAdded = !!currentLabels.find(({ key }) => key === id);
+
+  const classnames = cn("control-tag label-item", {
+    'label-item-disabled': isAdded,
+  });
+
+  return (
+    <span onClick={!isAdded ? handleAddCurrentLabel : null} className={classnames}>
+      {label}
+    </span>
+  );
+};
 
 const FullAddTask = ({ close }) => {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const api = useApi();
   const textArea = useRef(null);
   const auth = useAuth();
+  const labelsUser = useSelector(getLabels);
+  const currentLabels = useSelector(getCurrentLabels);
 
   const formik = useFormik({
     initialValues: {
       content: '',
       description: '',
       dateCompleted: `${new Date()}`,
-      labls: '',
       priority: 1,
+      labelSearch: '',
     },
     validateOnChange: false,
     validationSchema: Yup.object({
       content: Yup.string().trim().required(),
       description: Yup.string().trim(),
-      labls: Yup.string().trim(),
+      labelSearch: Yup.string().trim(),
     }),
     onSubmit: async (values) => {
       const date = new Date();
       const userUid = auth.getUserUid();
       const isCompleted = false;
       const {
-        labls, content, description, dateCompleted, priority,
+        content, description, dateCompleted, priority,
       } = values;
-      const labels = labls.replace(/\s+/g, '').split(',');
-
+      const labels = currentLabels;
       try {
         api.addTaskToFirebase({
           addedByUid: userUid,
@@ -48,6 +70,7 @@ const FullAddTask = ({ close }) => {
           labels,
         });
         close();
+        dispatch(clearCurrentLabelsState());
       } catch (err) {
         console.log(err);
       }
@@ -57,6 +80,34 @@ const FullAddTask = ({ close }) => {
   useEffect(() => {
     textArea.current.focus();
   }, []);
+
+  const labelSearch = (str) => labelsUser.filter(({ label }) => label.includes(str));
+
+  const handleAddCurrentLabel = (key, label) => () => {
+    const currLabels = { key, label };
+    return dispatch(addCurrentLabels({ currLabels }));
+  };
+
+  const renderCurrentLabels = (_labels) => {
+    if (_labels.length <= 0) {
+      return null;
+    }
+    return (
+      <div className="current-labels-list">
+        <span>{t('fullAddTask.addedLabels')}</span>
+        {_labels.map(({ key, label }) => <span className="label-item current-label" key={key}>{label}</span>)}
+      </div>
+    );
+  };
+  const renderLabelsList = () => labelSearch(formik.values.labelSearch)
+    .map(({ key, label }) => (
+      <Label
+        handleAddCurrentLabel={handleAddCurrentLabel(key, label)}
+        id={key}
+        key={key}
+        label={label}
+      />
+    ));
 
   return (
     <Modal close={close}>
@@ -89,14 +140,17 @@ const FullAddTask = ({ close }) => {
             />
           </div>
           <div className="form-floating mb-3">
-            <textarea
-              className="add-task-field"
+            {renderCurrentLabels(currentLabels)}
+            <span className="label-search">{t('fullAddTask.labelSearch')}</span>
+            <input
+              name="labelSearch"
               type="text"
-              name="labls"
-              placeholder={t('placeholders.labls')}
+              value={formik.values.labelSearch}
               onChange={formik.handleChange}
-              value={formik.values.labls}
             />
+            <div className="labels-list">
+              {renderLabelsList()}
+            </div>
           </div>
           <div className="form-fast-add-task-buttons">
             <button
@@ -112,7 +166,7 @@ const FullAddTask = ({ close }) => {
               className="btn btn-primary"
               type="submit"
               variant="primary"
-              onClick={(e) => { e.stopPropagation(); close(); }}
+              onClick={close}
               disabled={formik.isSubmitting}
             >
               {t('buttons.cancel')}

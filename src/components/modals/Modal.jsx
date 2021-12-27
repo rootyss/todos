@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import React from 'react';
 
 const ModalButtonClose = ({ children, close }) => {
   const handleClose = (event) => {
@@ -26,41 +26,19 @@ const Body = ({ children }) => (
   </div>
 );
 
-const Modal = ({ children, close }) => {
-  let modalContent = useRef(null); // eslint-disable-line functional/no-let
-
-  const handleEscClose = useCallback((event) => {
-    if (event.keyCode === 27) {
-      close();
-    }
-  }, []);
-
-  const handleClickOutside = (e) => {
-    if (!modalContent.contains(e.target)) close();
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleEscClose, false);
-    document.addEventListener("click", handleClickOutside, false);
-    return () => {
-      document.removeEventListener("keydown", handleEscClose, false);
-      document.removeEventListener("click", handleClickOutside, false);
-    };
-  }, []);
-
-  return (
-    <div className="modal">
-      <div
-        className="modal-content"
-        role="dialog"
-        aria-modal="true"
-        ref={(node) => { modalContent = node; }}
-      >
-        {children}
-      </div>
+const Modal = ({ children, close }) => (
+  <div className="modal" onClick={close} onKeyDown={(e) => { if (e.keyCode === 27) close(); }}>
+    <div
+      onClick={(e) => e.stopPropagation()}
+      tabIndex={0}
+      className="modal-content"
+      role="dialog"
+      aria-modal="true"
+    >
+      {children}
     </div>
-  );
-};
+  </div>
+);
 
 Modal.Header = Header;
 Modal.Body = Body;
