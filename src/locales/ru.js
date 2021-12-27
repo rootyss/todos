@@ -72,5 +72,9 @@ export default {
     labelsPage: {
       header: 'Ваши метки',
     },
+    fullAddTask: {
+      addedLabels: 'Добавленные метки:',
+      labelSearch: 'Поиск меток:',
+    },
   },
 };

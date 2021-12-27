@@ -70,7 +70,11 @@ export default {
       fullTaskHeader: 'Task information',
     },
     labelsPage: {
-      header: 'You labels',
+      header: 'Your labels',
+    },
+    fullAddTask: {
+      addedLabels: 'Added labels:',
+      labelSearch: 'Search label:',
     },
   },
 };
