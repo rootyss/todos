@@ -82,8 +82,8 @@ export default async (instanceApp) => {
     };
 
     const memoValues = useMemo(() => ({
-      addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase,
-    }), [addTaskToFirebase, addLabelToFirebase]);
+      addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase, database,
+    }), [addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase, database]);
 
     return (
       <apiContext.Provider value={memoValues}>
