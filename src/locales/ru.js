@@ -58,6 +58,7 @@ export default {
       upcoming: 'Предстоящие',
       notes: 'Заметки',
       labels: 'Метки',
+      archive: 'Архив',
     },
     inbox: {
       comments: 'Комментарии',
@@ -75,6 +76,9 @@ export default {
     fullAddTask: {
       addedLabels: 'Добавленные метки:',
       labelSearch: 'Поиск меток:',
+    },
+    archivePage: {
+      header: 'Завершенные задачи',
     },
   },
 };

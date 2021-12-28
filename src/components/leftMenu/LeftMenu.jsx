@@ -7,6 +7,7 @@ import {
   UPCOMING_ROUTE,
   NOTE_ROUTE,
   LABELS_ROUTE,
+  ARCHIVE_ROUTE,
 } from '../../utils/constants.js';
 
 const LeftMenu = () => {
@@ -20,6 +21,7 @@ const LeftMenu = () => {
           <li><Link className="left-menu-nav-link" to={UPCOMING_ROUTE}>{t('leftMenuTop.upcoming')}</Link></li>
           <li><Link className="left-menu-nav-link" to={NOTE_ROUTE}>{t('leftMenuTop.notes')}</Link></li>
           <li><Link className="left-menu-nav-link" to={LABELS_ROUTE}>{t('leftMenuTop.labels')}</Link></li>
+          <li><Link className="left-menu-nav-link" to={ARCHIVE_ROUTE}>{t('leftMenuTop.archive')}</Link></li>
         </ul>
       </div>
     </div>

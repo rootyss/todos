@@ -39,6 +39,11 @@ input, button, select, optgroup, textarea {
   font-size: inherit;
   line-height: inherit;
 }
+footer {
+  position: sticky;
+  bottom: 0;
+  background-color: $bg-light-color;
+}
 .card-footer {
   padding: 0.5rem 1rem;
   background-color: $card-bg-color;

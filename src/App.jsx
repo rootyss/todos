@@ -17,6 +17,7 @@ import {
   TODAY_ROUTE,
   UPCOMING_ROUTE,
   LABELS_ROUTE,
+  ARCHIVE_ROUTE,
 } from './utils/constants.js';
 import authContext from './context/authContext.js';
 import useAuth from './hooks/useAuth.jsx';
@@ -35,6 +36,7 @@ import Upcoming from './components/upcoming/Upcoming.jsx';
 import useApi from './hooks/useApi.jsx';
 import ModalWindow from './components/modals/index.jsx';
 import LabelSearch from './components/labelSearch/LabelSearch.jsx';
+import Archive from './components/archive/Archive.jsx';
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -55,7 +57,7 @@ const AuthProvider = ({ children }) => {
 
   const memoValues = useMemo(() => ({
     user, logIn, logOut, authFirebase, getUserUid,
-  }), [user, logIn, logOut, getUserUid]);
+  }), [user, logIn, logOut, authFirebase, getUserUid]);
 
   return (
     <authContext.Provider value={memoValues}>
@@ -103,6 +105,7 @@ const App = () => (
             <Route path={LABELS_ROUTE} element={<Labels />}>
               <Route path=":labelId" element={<LabelSearch />} />
             </Route>
+            <Route path={ARCHIVE_ROUTE} element={<Archive />} />
           </Route>
           <Route path="*" element={<NoMatch />} />
         </Route>

@@ -58,6 +58,7 @@ export default {
       upcoming: 'Upcoming',
       notes: 'Notes',
       labels: 'Labels',
+      archive: 'Archive',
     },
     inbox: {
       comments: 'Comments',
@@ -75,6 +76,9 @@ export default {
     fullAddTask: {
       addedLabels: 'Added labels:',
       labelSearch: 'Search label:',
+    },
+    archivePage: {
+      header: 'Completed tasks',
     },
   },
 };
