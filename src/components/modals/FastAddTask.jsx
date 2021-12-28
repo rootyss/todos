@@ -4,11 +4,13 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../spinner/Spinner.jsx';
 import useApi from '../../hooks/useApi.jsx';
+import useAuth from '../../hooks/useAuth.jsx';
 import Modal from './Modal.jsx';
 
 const FastAddTaskForm = ({ close }) => {
   const { t } = useTranslation();
   const api = useApi();
+  const auth = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -21,10 +23,17 @@ const FastAddTaskForm = ({ close }) => {
       description: Yup.string().trim(),
     }),
     onSubmit: async (values) => {
+      const userUid = auth.getUserUid();
       const date = new Date();
       try {
         api.addTaskToFirebase({
-          ...values, dateAdded: `${date}`, dateCompleted: `${date}`, priority: 1, isCompleted: false, labels: [],
+          ...values,
+          addedByUid: userUid,
+          dateAdded: `${date}`,
+          dateCompleted: `${date}`,
+          priority: 4,
+          isCompleted: false,
+          labels: [],
         });
         close();
       } catch (err) {

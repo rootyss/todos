@@ -12,6 +12,7 @@ const LabelSearch = () => {
   const tasks = useSelector(getTasks);
   const currentLabel = params.labelId;
   const currentTasks = tasks.filter(({ labels }) => {
+    if (!labels) return false;
     const labelNames = labels.map(({ label }) => label);
     return labelNames.includes(currentLabel);
   });
@@ -33,8 +34,9 @@ const LabelSearch = () => {
           dayOrder,
           description,
           id,
-          labels,
+          labels = [],
           priority,
+          isCompleted,
         }) => (
           <li key={id} className="task-list-item">
             <Task
@@ -49,6 +51,7 @@ const LabelSearch = () => {
               id={id}
               labels={labels}
               priority={priority}
+              completed={isCompleted}
             />
           </li>
         ))}

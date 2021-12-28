@@ -50,23 +50,28 @@ const Inbox = () => {
                     id,
                     labels,
                     priority,
-                  }) => (
-                    <li key={id} className="task-list-item">
-                      <Task
-                        handleViewTask={handleViewTask(id)}
-                        addedBbyUid={addedBbyUid}
-                        assignedByUid={assignedByUid}
-                        content={content}
-                        dateAdded={dateAdded}
-                        dateCompleted={dateCompleted}
-                        dayOrder={dayOrder}
-                        description={description}
-                        id={id}
-                        labels={labels}
-                        priority={priority}
-                      />
-                    </li>
-                  ))}
+                    isCompleted,
+                  }) => {
+                    if (isCompleted) return null;
+                    return (
+                      <li key={id} className="task-list-item">
+                        <Task
+                          handleViewTask={handleViewTask(id)}
+                          addedBbyUid={addedBbyUid}
+                          assignedByUid={assignedByUid}
+                          content={content}
+                          dateAdded={dateAdded}
+                          dateCompleted={dateCompleted}
+                          dayOrder={dayOrder}
+                          description={description}
+                          id={id}
+                          labels={labels}
+                          priority={priority}
+                          completed={isCompleted}
+                        />
+                      </li>
+                    );
+                  })}
                 </ul>
               )
                 : <div>Loading</div>}
