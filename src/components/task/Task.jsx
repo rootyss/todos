@@ -1,11 +1,13 @@
 import React from 'react';
 import { update, ref } from "firebase/database";
+import { useTranslation } from 'react-i18next';
 import { getFormatedDate } from '../../utils/utils.js';
 import Label from '../label/Label.jsx';
 import {
   FIREBASE_TASKS_ROUTE,
 } from '../../utils/constants.js';
 import useApi from '../../hooks/useApi.jsx';
+import Actions from '../actions/Actions.jsx';
 
 const Task = ({
   id,
@@ -19,6 +21,7 @@ const Task = ({
   completed,
 }) => {
   const api = useApi();
+  const { t } = useTranslation();
 
   const handleCompleted = () => {
     const taskRef = ref(api.database, `${FIREBASE_TASKS_ROUTE}/${id}`);
@@ -53,6 +56,9 @@ const Task = ({
           <div className="d-flex" onClick={(e) => e.stopPropagation()}>{labels.map(({ key, label }) => <Label key={key} label={label} />)}</div>
         </div>
       </div>
+      <Actions>
+        <Actions.Comments id={id}>{t('inbox.comments')}</Actions.Comments>
+      </Actions>
     </div>
   );
 };

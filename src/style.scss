@@ -218,23 +218,37 @@ footer {
   margin: 0 auto;
   align-items: flex-start;
 }
-.view-header__actions {
-  display: flex;
+.task-list-item {
+  position: relative;
+  &:hover .view-actions {
+    display: flex;
+  }
+}
+.view-actions {
+  display: none;
   margin-left: auto;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   align-items: center;
   color: #333;
-  a {
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: grey;
-    border-radius: 3px;
-    padding: 3px 5px;
-    &:hover {
-      background-color: $actions-hover-bg-color;
-      color: $actions-hover-color;
-    }
+}
+.actions-item {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: grey;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 3px 5px;
+  background-color: $actions-bg-color;
+  &:hover {
+    background-color: $actions-hover-bg-color;
+    color: $actions-hover-color;
+  }
+  &:not(:last-child) {
+    margin-right: 5px;
   }
 }
 .listbox {
@@ -371,6 +385,39 @@ btn-primary:disabled, .btn-primary.disabled {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.cookie-consent {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #8fc4cb;
+
+  p {
+    font-weight: bold;
+  }
+  button {
+    font-weight: 700;
+    color: white;
+    padding: 5px 15px 7px;
+    text-decoration: none;
+    border: 1px solid #6eaf66;
+    border-radius: 3px;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    transition: 0.2s;
+    &:hover {
+      background: rgb(53, 167, 110);
+    }
+    &:active {
+      background: rgb(33,147,90);
+      box-shadow: 0 3px rgb(33,147,90) inset;
+    }
+  }
+}
+
 @import "components/modals/modals.scss";
 
 .justify-content-center {
