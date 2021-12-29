@@ -80,5 +80,9 @@ export default {
     archivePage: {
       header: 'Завершенные задачи',
     },
+    cookie: {
+      consent: 'Этот сайт использует cookie для того, чтобы быть лучше.',
+      apply: 'Принять',
+    },
   },
 };

@@ -80,5 +80,9 @@ export default {
     archivePage: {
       header: 'Completed tasks',
     },
+    cookie: {
+      consent: 'This website uses cookies to enhance the user experience.',
+      apply: 'Apply',
+    },
   },
 };
