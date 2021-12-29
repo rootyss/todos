@@ -30,9 +30,6 @@ const Inbox = () => {
           <header className="view-header">
             <div className="view-header__content">
               <h1>{t('leftMenuTop.inbox')}</h1>
-              <div className="view-header__actions">
-                <a href="404">{t('inbox.comments')}</a>
-              </div>
             </div>
           </header>
           <main className="listbox">
