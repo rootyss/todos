@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import _ from 'lodash';
+import { CookiesProvider } from 'react-cookie';
 import {
   getDatabase, ref, push, equalTo, query, orderByChild, onValue,
 } from "firebase/database";
@@ -93,12 +94,14 @@ export default async (instanceApp) => {
   };
 
   return (
-    <Provider store={store}>
-      <I18nextProvider i18n={i18n}>
-        <ApiProvider>
-          <App />
-        </ApiProvider>
-      </I18nextProvider>
-    </Provider>
+    <CookiesProvider>
+      <Provider store={store}>
+        <I18nextProvider i18n={i18n}>
+          <ApiProvider>
+            <App />
+          </ApiProvider>
+        </I18nextProvider>
+      </Provider>
+    </CookiesProvider>
   );
 };
