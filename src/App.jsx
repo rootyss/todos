@@ -37,6 +37,7 @@ import useApi from './hooks/useApi.jsx';
 import ModalWindow from './components/modals/index.jsx';
 import LabelSearch from './components/labelSearch/LabelSearch.jsx';
 import Archive from './components/archive/Archive.jsx';
+import TaskPage from './components/taskPage/TaskPage.jsx';
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -88,28 +89,40 @@ const RequireAuth = () => {
   );
 };
 
+const RoutesApp = () => {
+  const location = useLocation();
+  const { state } = location;
+  return (
+    <Routes location={state?.backgroundLocation || location}>
+      <Route element={<ContentWrapper />}>
+        <Route path="/" element={<Information />} />
+        <Route path={REG_ROUTE} element={<SignUp />} />
+        <Route path={LOGIN_ROUTE} element={<Login />} />
+        <Route element={<RequireAuth />}>
+          <Route path={TODO_ROUTE} element={<ToDo />} />
+          <Route path={INBOX_ROUTE} element={<Inbox />} />
+          <Route path={TODAY_ROUTE} element={<Today />} />
+          <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
+          <Route path={NOTE_ROUTE} element={<Note />} />
+          <Route path={LABELS_ROUTE} element={<Labels />}>
+            <Route path=":labelId" element={<LabelSearch />} />
+          </Route>
+          <Route path={ARCHIVE_ROUTE} element={<Archive />} />
+          <Route path="/task/:id" element={<TaskPage />} />
+        </Route>
+        <Route path="*" element={<NoMatch />} />
+      </Route>
+      {state?.backgroundLocation && (
+      <Route path="/task/:id" />
+      )}
+    </Routes>
+  );
+};
+
 const App = () => (
   <AuthProvider>
     <BrowserRouter>
-      <Routes>
-        <Route element={<ContentWrapper />}>
-          <Route path="/" element={<Information />} />
-          <Route path={REG_ROUTE} element={<SignUp />} />
-          <Route path={LOGIN_ROUTE} element={<Login />} />
-          <Route element={<RequireAuth />}>
-            <Route path={TODO_ROUTE} element={<ToDo />} />
-            <Route path={INBOX_ROUTE} element={<Inbox />} />
-            <Route path={TODAY_ROUTE} element={<Today />} />
-            <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
-            <Route path={NOTE_ROUTE} element={<Note />} />
-            <Route path={LABELS_ROUTE} element={<Labels />}>
-              <Route path=":labelId" element={<LabelSearch />} />
-            </Route>
-            <Route path={ARCHIVE_ROUTE} element={<Archive />} />
-          </Route>
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
+      <RoutesApp />
       <ModalWindow />
     </BrowserRouter>
   </AuthProvider>
