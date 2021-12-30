@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import Modal from './Modal.jsx';
@@ -87,13 +88,18 @@ const ViewTask = () => {
 };
 
 const FullTask = ({ close }) => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
+  const closeFullTask = () => {
+    close();
+    navigate(-1);
+  };
 
   return (
-    <Modal close={close}>
+    <Modal close={closeFullTask}>
       <Modal.Header>
         <Modal.Header.H>{t('modals.fullTaskHeader')}</Modal.Header.H>
-        <Modal.Header.ButtonClose close={close} />
+        <Modal.Header.ButtonClose close={closeFullTask} />
       </Modal.Header>
       <Modal.Body>
         <ViewTask />
