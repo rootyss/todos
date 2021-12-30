@@ -18,10 +18,6 @@ const Inbox = () => {
   const handleFastAddTask = () => dispatch(openModal({
     type: modalTypes.fastAddTask,
   }));
-  const handleViewTask = (taskId) => () => dispatch(openModal({
-    type: modalTypes.fullTask,
-    taskId,
-  }));
 
   return (
     <div className="main-content-wrapper">
@@ -53,7 +49,6 @@ const Inbox = () => {
                     return (
                       <li key={id} className="task-list-item">
                         <Task
-                          handleViewTask={handleViewTask(id)}
                           addedBbyUid={addedBbyUid}
                           assignedByUid={assignedByUid}
                           content={content}
