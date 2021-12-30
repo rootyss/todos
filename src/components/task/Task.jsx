@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { update, ref } from "firebase/database";
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import {
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 import { getFormatedDate } from '../../utils/utils.js';
 import Label from '../label/Label.jsx';
 import {
   FIREBASE_TASKS_ROUTE,
+  modalTypes,
 } from '../../utils/constants.js';
 import useApi from '../../hooks/useApi.jsx';
 import Actions from '../actions/Actions.jsx';
+import { openModal } from '../../store/modalSlice.js';
 
 const Task = ({
   id,
@@ -17,16 +24,30 @@ const Task = ({
   description,
   labels = [],
   priority,
-  handleViewTask,
   completed,
 }) => {
+  const dispatch = useDispatch();
   const api = useApi();
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  const focusElem = useRef(null);
   const handleCompleted = () => {
     const taskRef = ref(api.database, `${FIREBASE_TASKS_ROUTE}/${id}`);
     setTimeout(() => update(taskRef, { isCompleted: true }), 1000);
   };
+
+  const handleViewTask = (taskId) => () => {
+    dispatch(openModal({
+      type: modalTypes.fullTask,
+      taskId,
+    }));
+    navigate(`/task/${taskId}`, { state: { backgroundLocation: location } });
+  };
+
+  useEffect(() => {
+    focusElem.current.focus();
+  }, []);
 
   return (
     <div className="task-list-item__body">
@@ -40,7 +61,7 @@ const Task = ({
           </div>
         </button>
       )}
-      <div className="task-list-item__content" role="button" onClick={handleViewTask} tabIndex="0">
+      <div ref={focusElem} className="task-list-item__content" role="button" onClick={handleViewTask(id)} tabIndex="0">
         <div className="task-list-item__content__wrapper">
           <div className="task-content">
             {content}
