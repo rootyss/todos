@@ -76,6 +76,7 @@ export default {
     fullAddTask: {
       addedLabels: 'Добавленные метки:',
       labelSearch: 'Поиск меток:',
+      selectPriority: 'Приоритет',
     },
     archivePage: {
       header: 'Завершенные задачи',
@@ -83,6 +84,9 @@ export default {
     cookie: {
       consent: 'Этот сайт использует cookie для того, чтобы быть лучше.',
       apply: 'Принять',
+    },
+    taskPage: {
+      header: 'Просмотр задачи',
     },
   },
 };

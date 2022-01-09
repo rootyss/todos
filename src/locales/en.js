@@ -76,6 +76,7 @@ export default {
     fullAddTask: {
       addedLabels: 'Added labels:',
       labelSearch: 'Search label:',
+      selectPriority: 'Priority',
     },
     archivePage: {
       header: 'Completed tasks',
@@ -83,6 +84,9 @@ export default {
     cookie: {
       consent: 'This website uses cookies to enhance the user experience.',
       apply: 'Apply',
+    },
+    taskPage: {
+      header: 'Task view',
     },
   },
 };
