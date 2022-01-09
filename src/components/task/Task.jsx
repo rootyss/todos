@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { update, ref } from "firebase/database";
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   useNavigate,
   useLocation,
@@ -31,23 +31,24 @@ const Task = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const focusElem = useRef(null);
+
+  const isOpen = useSelector((state) => state.modal.isOpen);
+
   const handleCompleted = () => {
     const taskRef = ref(api.database, `${FIREBASE_TASKS_ROUTE}/${id}`);
     setTimeout(() => update(taskRef, { isCompleted: true }), 1000);
   };
 
   const handleViewTask = (taskId) => () => {
+    if (isOpen) {
+      return;
+    }
     dispatch(openModal({
       type: modalTypes.fullTask,
       taskId,
     }));
     navigate(`/task/${taskId}`, { state: { backgroundLocation: location } });
   };
-
-  useEffect(() => {
-    focusElem.current.focus();
-  }, []);
 
   return (
     <div className="task-list-item__body">
@@ -61,7 +62,7 @@ const Task = ({
           </div>
         </button>
       )}
-      <div ref={focusElem} className="task-list-item__content" role="button" onClick={handleViewTask(id)} tabIndex="0">
+      <div className="task-list-item__content" role="button" onClick={handleViewTask(id)} tabIndex="0">
         <div className="task-list-item__content__wrapper">
           <div className="task-content">
             {content}
