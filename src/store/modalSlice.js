@@ -12,7 +12,6 @@ const modalSlice = createSlice({
       const { type, taskId } = action.payload;
       return { isOpen: true, type, currentTaskId: taskId };
     },
-
     closeModal() {
       return { isOpen: false, type: null };
     },
@@ -20,5 +19,5 @@ const modalSlice = createSlice({
 });
 
 export const getModalInfo = (state) => state.modal;
-export const { closeModal, openModal } = modalSlice.actions;
+export const { closeModal, openModal, setCurrentTaskId } = modalSlice.actions;
 export const modalSliceReducer = modalSlice.reducer;

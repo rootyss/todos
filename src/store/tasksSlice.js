@@ -7,6 +7,7 @@ const tasksSlice = createSlice({
     tasks: [],
     currentTabDetailsName: 'sub-tasks',
     fetchingState: 'none',
+    currentTaskView: null,
   },
   reducers: {
     addTaskToState(state, action) {
