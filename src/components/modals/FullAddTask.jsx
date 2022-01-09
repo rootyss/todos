@@ -41,7 +41,7 @@ const FullAddTask = ({ close }) => {
       content: '',
       description: '',
       dateCompleted: `${new Date()}`,
-      priority: 1,
+      priority: 0,
       labelSearch: '',
     },
     validateOnChange: false,
@@ -138,6 +138,21 @@ const FullAddTask = ({ close }) => {
               onChange={formik.handleChange}
               value={formik.values.description}
             />
+          </div>
+          <div className="form-floating mb-3">
+            <select
+              name="priority"
+              value={formik.values.priority}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              style={{ display: 'block' }}
+            >
+              <option value="0" label={t('fullAddTask.selectPriority')} />
+              <option value="1" label="1" />
+              <option value="2" label="2" />
+              <option value="3" label="3" />
+              <option value="4" label="4" />
+            </select>
           </div>
           <div className="form-floating mb-3">
             {renderCurrentLabels(currentLabels)}

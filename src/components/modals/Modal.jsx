@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 const ModalButtonClose = ({ children, close }) => {
+  const focusElem = useRef(null);
+
+  useEffect(() => {
+    focusElem.current.focus();
+  }, []);
+
   const handleClose = (event) => {
     event.stopPropagation();
     close();
   };
-  return (<button aria-label="Close" type="button" className="btn btn-close" onClick={handleClose}>{children}</button>);
+  return (<button ref={focusElem} aria-label="Close" type="button" className="btn btn-close" onClick={handleClose}>{children}</button>);
 };
 
 const H = ({ children }) => <h3 className="text-truncate">{children}</h3>;
@@ -15,6 +21,7 @@ const Header = ({ children }) => (
     {children}
   </div>
 );
+
 Header.H = H;
 Header.ButtonClose = ModalButtonClose;
 
