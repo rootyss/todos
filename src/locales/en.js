@@ -89,5 +89,8 @@ export default {
       header: 'Task view',
     },
     locales: 'en',
+    userSetting: {
+      header: 'User data',
+    },
   },
 };

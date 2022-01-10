@@ -89,5 +89,8 @@ export default {
       header: 'Просмотр задачи',
     },
     locales: 'ru',
+    userSetting: {
+      header: 'Пользовательские данные',
+    },
   },
 };
