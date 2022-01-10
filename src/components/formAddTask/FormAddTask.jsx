@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import useAuth from '../../hooks/useAuth.jsx';
 import useApi from '../../hooks/useApi.jsx';
 import {
-  getLabels, getCurrentLabels, addCurrentLabels, clearCurrentLabelsState,
+  getLabels, getCurrentLabels, addCurrentLabels, clearCurrentLabelsState, deleteCurrentLabel,
 } from '../../store/labelsSlice.js';
 import Spinner from '../spinner/Spinner.jsx';
 
@@ -68,13 +68,19 @@ const FormAddTask = ({ close }) => {
   };
 
   const renderCurrentLabels = (_labels) => {
+    const dispatch = useDispatch();
+
     if (_labels.length <= 0) {
       return null;
     }
+    const handleDeleteLabel = (id) => () => {
+      dispatch(deleteCurrentLabel({ id }));
+    };
+
     return (
       <div className="current-labels-list">
         <span>{t('fullAddTask.addedLabels')}</span>
-        {_labels.map(({ key, label }) => <span className="label-item current-label" key={key}>{label}</span>)}
+        {_labels.map(({ key, label }) => <span onClick={handleDeleteLabel(key)} className="label-item current-label" key={key}>{label}</span>)}
       </div>
     );
   };
