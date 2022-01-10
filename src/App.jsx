@@ -18,6 +18,7 @@ import {
   UPCOMING_ROUTE,
   LABELS_ROUTE,
   ARCHIVE_ROUTE,
+  USER_PROFILE_ROUTE,
 } from './utils/constants.js';
 import authContext from './context/authContext.js';
 import useAuth from './hooks/useAuth.jsx';
@@ -38,6 +39,7 @@ import ModalWindow from './components/modals/index.jsx';
 import LabelSearch from './components/labelSearch/LabelSearch.jsx';
 import Archive from './components/archive/Archive.jsx';
 import TaskPage from './components/taskPage/TaskPage.jsx';
+import User from './components/user/User.jsx';
 
 const AuthProvider = ({ children }) => {
   const userData = JSON.parse(localStorage.getItem('user'));
@@ -107,6 +109,7 @@ const RoutesApp = () => {
           <Route path={LABELS_ROUTE} element={<Labels />}>
             <Route path=":labelId" element={<LabelSearch />} />
           </Route>
+          <Route path={USER_PROFILE_ROUTE} element={<User />} />
           <Route path={ARCHIVE_ROUTE} element={<Archive />} />
           <Route path="/task/:id" element={<TaskPage />} />
         </Route>
