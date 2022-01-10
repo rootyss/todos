@@ -88,5 +88,6 @@ export default {
     taskPage: {
       header: 'Task view',
     },
+    locales: 'en',
   },
 };

@@ -88,5 +88,6 @@ export default {
     taskPage: {
       header: 'Просмотр задачи',
     },
+    locales: 'ru',
   },
 };
