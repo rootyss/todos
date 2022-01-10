@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { Formik, useFormikContext, useField } from 'formik';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
+import ru from "date-fns/locale/ru";
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import useAuth from '../../hooks/useAuth.jsx';
@@ -30,11 +31,14 @@ const Label = ({ id, label, handleAddCurrentLabel }) => {
 };
 
 const Calendar = (props) => {
+  const { t } = useTranslation();
+  registerLocale("ru", ru);
   const { setFieldValue } = useFormikContext();
   const [field] = useField(props);
   const { name } = props;
   return (
     <DatePicker
+      locale={t('locales')}
       name={name}
       selected={(field.value && new Date(field.value)) || null}
       onChange={(val) => {
@@ -68,8 +72,6 @@ const FormAddTask = ({ close }) => {
   };
 
   const renderCurrentLabels = (_labels) => {
-    const dispatch = useDispatch();
-
     if (_labels.length <= 0) {
       return null;
     }
@@ -211,7 +213,6 @@ const FormAddTask = ({ close }) => {
         </form>
       )}
     </Formik>
-
   );
 };
 
