@@ -7,11 +7,7 @@ const ModalButtonClose = ({ children, close }) => {
     focusElem.current.focus();
   }, []);
 
-  const handleClose = (event) => {
-    event.stopPropagation();
-    close();
-  };
-  return (<button ref={focusElem} aria-label="Close" type="button" className="btn btn-close" onClick={handleClose}>{children}</button>);
+  return (<button ref={focusElem} aria-label="Close" type="button" className="btn btn-close" onClick={close}>{children}</button>);
 };
 
 const H = ({ children }) => <h3 className="text-truncate">{children}</h3>;
