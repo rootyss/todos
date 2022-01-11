@@ -59,7 +59,7 @@ const FormAddTask = ({ close }) => {
   };
   const api = useApi();
   const textArea = useRef(null);
-  const auth = useAuth();
+  const { user } = useAuth();
   const labelsUser = useSelector(getLabels);
   const currentLabels = useSelector(getCurrentLabels);
   const { t } = useTranslation();
@@ -111,7 +111,7 @@ const FormAddTask = ({ close }) => {
       validateOnChange={false}
       onSubmit={async (values) => {
         const date = new Date();
-        const userUid = auth.getUserUid();
+        const userUid = user.uid;
         const isCompleted = false;
         const {
           content, description, dateCompleted, priority,

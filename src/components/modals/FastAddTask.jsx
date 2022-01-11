@@ -10,7 +10,7 @@ import Modal from './Modal.jsx';
 const FastAddTaskForm = ({ close }) => {
   const { t } = useTranslation();
   const api = useApi();
-  const auth = useAuth();
+  const { user } = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -23,7 +23,7 @@ const FastAddTaskForm = ({ close }) => {
       description: Yup.string().trim(),
     }),
     onSubmit: async (values) => {
-      const userUid = auth.getUserUid();
+      const userUid = user.uid;
       const date = new Date();
       try {
         api.addTaskToFirebase({

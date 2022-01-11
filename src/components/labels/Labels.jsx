@@ -12,8 +12,8 @@ import Label from '../label/Label.jsx';
 
 const Labels = () => {
   const { t } = useTranslation();
-  const auth = useAuth();
-  const userUid = auth.getUserUid();
+  const { user } = useAuth();
+  const userUid = user.uid;
   const api = useApi();
   const textArea = useRef(null);
   const labelsUser = useSelector(getLabels);

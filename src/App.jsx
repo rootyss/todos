@@ -47,8 +47,8 @@ const AuthProvider = ({ children }) => {
   const authFirebase = getAuth();
 
   const logIn = (userIn) => {
-    setUser(userIn);
     localStorage.setItem('user', JSON.stringify(userIn));
+    setUser(userIn);
   };
   const logOut = () => {
     signOut(authFirebase);
@@ -56,11 +56,9 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const getUserUid = () => user.uid;
-
   const memoValues = useMemo(() => ({
-    user, logIn, logOut, authFirebase, getUserUid,
-  }), [user, logIn, logOut, authFirebase, getUserUid]);
+    user, logIn, logOut, authFirebase,
+  }), [user, logIn, logOut, authFirebase]);
 
   return (
     <authContext.Provider value={memoValues}>
@@ -70,17 +68,17 @@ const AuthProvider = ({ children }) => {
 };
 
 const RequireAuth = () => {
-  const auth = useAuth();
+  const { user } = useAuth();
   const location = useLocation();
   const api = useApi();
 
   useEffect(() => {
-    if (!auth.user) return;
-    api.getUserTasks(auth.getUserUid());
-    api.getUserLabels(auth.getUserUid());
+    if (!user) return;
+    api.getUserTasks(user.uid);
+    api.getUserLabels(user.uid);
   }, []);
 
-  if (!auth.user) {
+  if (!user) {
     return <Navigate to={LOGIN_ROUTE} state={{ from: location }} />;
   }
   return (
