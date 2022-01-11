@@ -1,17 +1,18 @@
 export const LOGIN_ROUTE = '/login';
 export const TODO_ROUTE = '/todo';
 export const REG_ROUTE = '/signup';
-export const NOTE_ROUTE = 'notes';
 export const USER_PROFILE_ROUTE = '/user';
+export const NOTE_ROUTE = 'notes';
 export const INBOX_ROUTE = 'inbox';
 export const TODAY_ROUTE = 'today';
+export const LABELS_ROUTE = 'labels';
 export const ARCHIVE_ROUTE = 'archive';
 export const UPCOMING_ROUTE = 'upcoming';
 
 export const URL_DATABASE = 'https://todos-c6f25-default-rtdb.asia-southeast1.firebasedatabase.app';
 export const FIREBASE_TASKS_ROUTE = 'tasks/';
-export const LABELS_ROUTE = 'labels';
 export const FIREBASE_LABELS_ROUTE = 'labels/';
+export const FIREBASE_USERS_ROUTE = 'users/';
 
 export const modalTypes = {
   fastAddTask: 'FastAddTask',
