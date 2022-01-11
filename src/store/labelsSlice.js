@@ -11,7 +11,9 @@ const labelsSlice = createSlice({
   reducers: {
     addLabelToState(state, action) {
       const { labels } = action.payload;
-      return { ...state, labels };
+      const labelsEntries = _.toPairs(labels);
+      const userLabels = labelsEntries.map(([key, { label }]) => ({ key, label }));
+      return { ...state, labels: userLabels };
     },
     addCurrentLabels(state, action) {
       const { currLabels } = action.payload;
