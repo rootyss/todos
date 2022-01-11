@@ -4,15 +4,15 @@ import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 import { Outlet } from "react-router-dom";
 import * as Yup from 'yup';
-import useAuth from '../../hooks/useAuth.jsx';
 import useApi from '../../hooks/useApi.jsx';
 import Spinner from '../spinner/Spinner.jsx';
 import { getLabels } from '../../store/labelsSlice.js';
 import Label from '../label/Label.jsx';
+import { getUser } from '../../store/userSlice.js';
 
 const Labels = () => {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const user = useSelector(getUser);
   const userUid = user.uid;
   const api = useApi();
   const textArea = useRef(null);

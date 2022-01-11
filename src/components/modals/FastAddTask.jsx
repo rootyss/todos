@@ -2,15 +2,16 @@ import React, { useRef, useEffect } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import Spinner from '../spinner/Spinner.jsx';
 import useApi from '../../hooks/useApi.jsx';
-import useAuth from '../../hooks/useAuth.jsx';
 import Modal from './Modal.jsx';
+import { getUser } from '../../store/userSlice.js';
 
 const FastAddTaskForm = ({ close }) => {
   const { t } = useTranslation();
   const api = useApi();
-  const { user } = useAuth();
+  const user = useSelector(getUser);
 
   const formik = useFormik({
     initialValues: {

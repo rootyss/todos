@@ -6,12 +6,12 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import ru from "date-fns/locale/ru";
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-import useAuth from '../../hooks/useAuth.jsx';
 import useApi from '../../hooks/useApi.jsx';
 import {
   getLabels, getCurrentLabels, addCurrentLabels, clearCurrentLabelsState, deleteCurrentLabel,
 } from '../../store/labelsSlice.js';
 import Spinner from '../spinner/Spinner.jsx';
+import { getUser } from '../../store/userSlice.js';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -59,7 +59,7 @@ const FormAddTask = ({ close }) => {
   };
   const api = useApi();
   const textArea = useRef(null);
-  const { user } = useAuth();
+  const user = useSelector(getUser);
   const labelsUser = useSelector(getLabels);
   const currentLabels = useSelector(getCurrentLabels);
   const { t } = useTranslation();

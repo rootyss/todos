@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
 import * as _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +12,7 @@ import {
   LOGIN_ROUTE, TODO_ROUTE,
 } from '../../utils/constants.js';
 import Spinner from '../spinner/Spinner.jsx';
+import { getUser } from '../../store/userSlice.js';
 
 const SignUpForm = ({ auth }) => {
   const [authFailed, setAuthFailed] = useState(false);
@@ -41,7 +43,8 @@ const SignUpForm = ({ auth }) => {
       try {
         const { email, password } = values;
         const { user } = await createUserWithEmailAndPassword(auth.authFirebase, email, password);
-        auth.logIn(user);
+        const serUser = JSON.stringify(user);
+        auth.logIn(serUser);
         return null;
       } catch (err) {
         setAuthFailed(true);
@@ -142,9 +145,9 @@ const SignUpForm = ({ auth }) => {
 
 const SignUp = () => {
   const auth = useAuth();
-
+  const user = useSelector(getUser);
   return (
-    auth.user
+    user
       ? <Navigate to={TODO_ROUTE} />
       : <SignUpForm auth={auth} />
   );

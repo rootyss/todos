@@ -44,7 +44,8 @@ const Login = () => {
       try {
         const { email, password } = values;
         const { user } = await signInWithEmailAndPassword(auth.authFirebase, email, password);
-        auth.logIn(user);
+        const serUser = JSON.stringify(user);
+        auth.logIn(serUser);
         navigate(from, { replace: true });
         return null;
       } catch (err) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   modalTypes,
   TODO_ROUTE,
@@ -12,8 +12,10 @@ import {
 import { openModal } from '../../store/modalSlice.js';
 import useAuth from '../../hooks/useAuth.jsx';
 import AddTaskIcon from '../../../add.svg';
+import { getUser } from '../../store/userSlice.js';
 
 const Navbar = () => {
+  const user = useSelector(getUser);
   const auth = useAuth();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -29,14 +31,14 @@ const Navbar = () => {
         <div className="navbar-collapse collapse">
           <div className="container-fluid" />
           <ul className="navbar-nav">
-            {auth.user
+            {user
               ? (
                 <>
                   <li className="nav-item">
                     <button onClick={handleFullAddTask} type="button" className="add-task"><img className="add-task-icon" src={AddTaskIcon} alt="Add task" /></button>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to={USER_PROFILE_ROUTE}>{auth.user.displayName ?? t('mainMenu.userAnonim')}</Link>
+                    <Link className="nav-link" to={USER_PROFILE_ROUTE}>{user.displayName ?? t('mainMenu.userAnonim')}</Link>
                   </li>
                   <li className="nav-item">
                     <button type="button" className="btn btn-primary" onClick={() => auth.logOut()}>{t('buttons.logOut')}</button>
