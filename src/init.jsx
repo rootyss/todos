@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import _ from 'lodash';
 import { CookiesProvider } from 'react-cookie';
 import {
   getDatabase, ref, push, equalTo, query, orderByChild, onValue,
@@ -72,9 +71,7 @@ export default async (instanceApp) => {
       dispatch(labelsPending());
 
       onValue(userLabelsRef, (snap) => {
-        const data = snap.val();
-        const dataEntries = _.toPairs(data);
-        const labels = dataEntries.map(([key, { label }]) => ({ key, label }));
+        const labels = snap.val();
         dispatch(addLabelToState({ labels }));
         dispatch(labelsFulfilled());
       }, () => {
