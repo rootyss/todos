@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -8,6 +8,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   TODO_ROUTE,
   LOGIN_ROUTE,
@@ -21,7 +22,6 @@ import {
   USER_PROFILE_ROUTE,
 } from './utils/constants.js';
 import authContext from './context/authContext.js';
-import useAuth from './hooks/useAuth.jsx';
 import ContentWrapper from './components/contentWrapper/ContentWrapper.jsx';
 import NoMatch from './components/noMatch/NoMatch.jsx';
 import Login from './components/login/Login.jsx';
@@ -40,25 +40,27 @@ import LabelSearch from './components/labelSearch/LabelSearch.jsx';
 import Archive from './components/archive/Archive.jsx';
 import TaskPage from './components/taskPage/TaskPage.jsx';
 import User from './components/user/User.jsx';
+import { setUser, clearUser, getUser } from './store/userSlice.js';
 
 const AuthProvider = ({ children }) => {
+  const dispatch = useDispatch();
   const userData = JSON.parse(localStorage.getItem('user'));
-  const [user, setUser] = useState(userData);
+  if (userData) {
+    dispatch(setUser(userData));
+  }
   const authFirebase = getAuth();
 
   const logIn = (userIn) => {
-    localStorage.setItem('user', JSON.stringify(userIn));
-    setUser(userIn);
+    dispatch(setUser(JSON.parse(userIn)));
   };
   const logOut = () => {
+    dispatch(clearUser());
     signOut(authFirebase);
-    localStorage.removeItem('user');
-    setUser(null);
   };
 
   const memoValues = useMemo(() => ({
-    user, logIn, logOut, authFirebase,
-  }), [user, logIn, logOut, authFirebase]);
+    logIn, logOut, authFirebase,
+  }), [logIn, logOut, authFirebase]);
 
   return (
     <authContext.Provider value={memoValues}>
@@ -68,7 +70,7 @@ const AuthProvider = ({ children }) => {
 };
 
 const RequireAuth = () => {
-  const { user } = useAuth();
+  const user = useSelector(getUser);
   const location = useLocation();
   const api = useApi();
 
