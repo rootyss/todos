@@ -40,20 +40,22 @@ import LabelSearch from './components/labelSearch/LabelSearch.jsx';
 import Archive from './components/archive/Archive.jsx';
 import TaskPage from './components/taskPage/TaskPage.jsx';
 import User from './components/user/User.jsx';
-import { setUser, clearUser, getUser, sendUserData, getUserData } from './store/userSlice.js';
+import {
+  setUser, clearUser, getUser, sendUserData, getUserData,
+} from './store/userSlice.js';
 
 const AuthProvider = ({ children }) => {
   const api = useApi();
   const dispatch = useDispatch();
-  const userData = JSON.parse(localStorage.getItem('user'));
-  if (userData) {
-    dispatch(setUser(userData));
+  const userObj = JSON.parse(localStorage.getItem('user'));
+  if (userObj) {
+    dispatch(setUser(userObj));
   }
   const authFirebase = getAuth();
 
   const logIn = (userIn) => {
     const userData = JSON.parse(userIn);
-    console.log(userData)
+    console.log(userData);
     dispatch(setUser(userData));
     dispatch(sendUserData({ userData, db: api.database }));
   };
