@@ -29,7 +29,7 @@ import {
   fulfilled as labelsFulfilled,
   rejected as labelsRejected,
 } from './store/labelsSlice.js';
-import { setUser, clearUser } from './store/userSlice.js';
+import { localStorageMiddleware } from './store/middlewares.js';
 
 export default async (instanceApp) => {
   const i18n = i18next.createInstance();
@@ -37,19 +37,9 @@ export default async (instanceApp) => {
     .use(initReactI18next)
     .init({ resources, fallbackLng: 'ru' });
 
-  const testMidd = () => (next) => (action) => {
-    if (setUser.match(action) && action.payload) {
-      localStorage.setItem('user', JSON.stringify(action.payload));
-    }
-    if (clearUser.match(action)) {
-      localStorage.removeItem('user');
-    }
-    return next(action);
-  };
-
   const store = configureStore({
     reducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(testMidd),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
   });
 
   const ApiProvider = ({ children }) => {
