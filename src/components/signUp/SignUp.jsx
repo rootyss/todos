@@ -43,6 +43,7 @@ const SignUpForm = ({ auth }) => {
       try {
         const { email, password } = values;
         const { user } = await createUserWithEmailAndPassword(auth.authFirebase, email, password);
+        user.displayName = user.displayName ? user.displayName : t('mainMenu.userAnonim');
         const serUser = JSON.stringify(user);
         auth.logIn(serUser);
         return null;
