@@ -38,7 +38,7 @@ const Navbar = () => {
                     <button onClick={handleFullAddTask} type="button" className="add-task"><img className="add-task-icon" src={AddTaskIcon} alt="Add task" /></button>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to={USER_PROFILE_ROUTE}>{user.displayName ?? t('mainMenu.userAnonim')}</Link>
+                    <Link className="nav-link" to={USER_PROFILE_ROUTE}>{user.displayName}</Link>
                   </li>
                   <li className="nav-item">
                     <button type="button" className="btn btn-primary" onClick={() => auth.logOut()}>{t('buttons.logOut')}</button>
