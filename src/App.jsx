@@ -40,9 +40,10 @@ import LabelSearch from './components/labelSearch/LabelSearch.jsx';
 import Archive from './components/archive/Archive.jsx';
 import TaskPage from './components/taskPage/TaskPage.jsx';
 import User from './components/user/User.jsx';
-import { setUser, clearUser, getUser } from './store/userSlice.js';
+import { setUser, clearUser, getUser, sendUserData, getUserData } from './store/userSlice.js';
 
 const AuthProvider = ({ children }) => {
+  const api = useApi();
   const dispatch = useDispatch();
   const userData = JSON.parse(localStorage.getItem('user'));
   if (userData) {
@@ -51,7 +52,10 @@ const AuthProvider = ({ children }) => {
   const authFirebase = getAuth();
 
   const logIn = (userIn) => {
-    dispatch(setUser(JSON.parse(userIn)));
+    const userData = JSON.parse(userIn);
+    console.log(userData)
+    dispatch(setUser(userData));
+    dispatch(sendUserData({ userData, db: api.database }));
   };
   const logOut = () => {
     dispatch(clearUser());
@@ -70,6 +74,7 @@ const AuthProvider = ({ children }) => {
 };
 
 const RequireAuth = () => {
+  const dispatch = useDispatch();
   const user = useSelector(getUser);
   const location = useLocation();
   const api = useApi();
@@ -78,6 +83,7 @@ const RequireAuth = () => {
     if (!user) return;
     api.getUserTasks(user.uid);
     api.getUserLabels(user.uid);
+    dispatch(getUserData({ userData: user, db: api.database }));
   }, []);
 
   if (!user) {
