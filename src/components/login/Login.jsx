@@ -28,13 +28,13 @@ const Login = () => {
   }, [inputRef]);
 
   const SigninSchema = yup.object({
-    email: yup.string().email(t('errors.incorrectEmail')).required(t('errors.incorrectEmail')),
+    useremail: yup.string().email(t('errors.incorrectEmail')).required(t('errors.incorrectEmail')),
     password: yup.string().required(t('errors.requiredEmail')),
   });
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      useremail: '',
       password: '',
     },
     validateOnChange: false,
@@ -42,10 +42,18 @@ const Login = () => {
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
-        const { email, password } = values;
-        const { user } = await signInWithEmailAndPassword(auth.authFirebase, email, password);
-        user.displayName = user.displayName ? user.displayName : t('mainMenu.userAnonim');
-        const serUser = JSON.stringify(user);
+        const { useremail, password } = values;
+        const { user } = await signInWithEmailAndPassword(auth.authFirebase, useremail, password);
+        const {
+          accessToken,
+          email,
+          metadata: { createdAt, lastLoginAt },
+          uid,
+        } = user;
+        const data = {
+          accessToken, email, createdAt, lastLoginAt, uid,
+        };
+        const serUser = JSON.stringify(data);
         auth.logIn(serUser);
         navigate(from, { replace: true });
         return null;
@@ -81,12 +89,12 @@ const Login = () => {
                   className={getClasses('email')}
                   type="email"
                   id="email"
-                  name="email"
+                  name="useremail"
                   autoComplete="email"
                   required
                   placeholder={t('placeholders.email')}
                   onChange={formik.handleChange}
-                  value={formik.values.email}
+                  value={formik.values.useremail}
                   ref={inputRef}
                 />
                 <label className="form-label" htmlFor="email">{t('label.email')}</label>
