@@ -7,16 +7,25 @@ import Spinner from '../spinner/Spinner.jsx';
 import useApi from '../../hooks/useApi.jsx';
 import Modal from './Modal.jsx';
 import { getUser } from '../../store/userSlice.js';
+import { getUsers } from '../../store/usersSlice.js';
 
 const FastAddTaskForm = ({ close }) => {
   const { t } = useTranslation();
   const api = useApi();
   const user = useSelector(getUser);
+  const users = useSelector(getUsers);
+
+  const getUid = (useremail) => {
+    if (!useremail) return null;
+    console.log(useremail, users);
+    return users.find(({ email }) => email === useremail)?.uid;
+  };
 
   const formik = useFormik({
     initialValues: {
       content: '',
       description: '',
+      addedToUid: '',
     },
     validateOnChange: false,
     validationSchema: Yup.object({
@@ -26,15 +35,18 @@ const FastAddTaskForm = ({ close }) => {
     onSubmit: async (values) => {
       const userUid = user.uid;
       const date = new Date();
+      const { content, description, addedToUid } = values;
       try {
         api.addTaskToFirebase({
-          ...values,
+          content,
+          description,
           addedByUid: userUid,
           dateAdded: `${date}`,
           dateCompleted: `${date}`,
           priority: 4,
           isCompleted: false,
           labels: [],
+          addedToUid: getUid(addedToUid) || userUid,
         });
         close();
       } catch (err) {
@@ -71,6 +83,18 @@ const FastAddTaskForm = ({ close }) => {
           onChange={formik.handleChange}
           value={formik.values.description}
         />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="addedToUid">
+          Кому (почта):
+          <input
+            id="addedToUid"
+            name="addedToUid"
+            type="text"
+            value={formik.values.addedToUid}
+            onChange={formik.handleChange}
+          />
+        </label>
       </div>
       <div className="form-fast-add-task-buttons">
         <button

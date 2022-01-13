@@ -12,6 +12,7 @@ import {
 } from '../../store/labelsSlice.js';
 import Spinner from '../spinner/Spinner.jsx';
 import { getUser } from '../../store/userSlice.js';
+import { getUsers } from '../../store/usersSlice.js';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -56,6 +57,7 @@ const FormAddTask = ({ close }) => {
     dateCompleted: new Date(),
     priority: 0,
     labelSearch: '',
+    addedToUid: '',
   };
   const api = useApi();
   const textArea = useRef(null);
@@ -63,8 +65,14 @@ const FormAddTask = ({ close }) => {
   const labelsUser = useSelector(getLabels);
   const currentLabels = useSelector(getCurrentLabels);
   const { t } = useTranslation();
+  const users = useSelector(getUsers);
 
-  const labelSearch = (str) => labelsUser.filter(({ label }) => label.includes(str));
+  const getUid = (useremail) => {
+    if (!useremail) return null;
+    return users.find(({ email }) => email === useremail)?.uid;
+  };
+
+  const labelSearch = (str) => labelsUser.filter(({ label }) => label.includes(str)).slice(0, 5);
 
   const handleAddCurrentLabel = (key, label) => () => {
     const currLabels = { key, label };
@@ -114,7 +122,7 @@ const FormAddTask = ({ close }) => {
         const userUid = user.uid;
         const isCompleted = false;
         const {
-          content, description, dateCompleted, priority,
+          content, description, dateCompleted, priority, addedToUid,
         } = values;
         const labels = currentLabels;
         try {
@@ -127,6 +135,7 @@ const FormAddTask = ({ close }) => {
             dateAdded: `${date}`,
             isCompleted,
             labels,
+            addedToUid: getUid(addedToUid) || userUid,
           });
           close();
           dispatch(clearCurrentLabelsState());
@@ -186,6 +195,18 @@ const FormAddTask = ({ close }) => {
             <div className="labels-list">
               {renderLabelsList(props.values.labelSearch)}
             </div>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="addedToUid">
+              Кому (почта):
+              <input
+                id="addedToUid"
+                name="addedToUid"
+                type="text"
+                value={props.values.addedToUid}
+                onChange={props.handleChange}
+              />
+            </label>
           </div>
           <div className="form-floating mb-3">
             <Calendar name="dateCompleted" />

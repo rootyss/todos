@@ -5,11 +5,13 @@ import Task from '../task/Task.jsx';
 import { openModal, getModalInfo } from '../../store/modalSlice.js';
 import { getTasks, getFetchingStateTasks } from '../../store/tasksSlice.js';
 import { modalTypes } from '../../utils/constants.js';
+import { getUser } from '../../store/userSlice.js';
 
 const Inbox = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const tasks = useSelector(getTasks);
+  const user = useSelector(getUser);
   const modalInfo = useSelector(getModalInfo);
   const { type, isOpen } = modalInfo;
   const fetchingTasksState = useSelector(getFetchingStateTasks);
@@ -32,9 +34,8 @@ const Inbox = () => {
             <div className="view-content">
               {isRenderTasks ? (
                 <ul className="listbox-list">
-                  {tasks.map(({
+                  {tasks.filter(({ addedToUid }) => addedToUid === user.uid).map(({
                     addedBbyUid,
-                    assignedByUid,
                     content,
                     dateAdded,
                     dateCompleted,
@@ -50,7 +51,6 @@ const Inbox = () => {
                       <li key={id} className="task-list-item">
                         <Task
                           addedBbyUid={addedBbyUid}
-                          assignedByUid={assignedByUid}
                           content={content}
                           dateAdded={dateAdded}
                           dateCompleted={dateCompleted}

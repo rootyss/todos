@@ -16,6 +16,7 @@ import {
   URL_DATABASE,
   FIREBASE_TASKS_ROUTE,
   FIREBASE_LABELS_ROUTE,
+  FIREBASE_USERS_ROUTE,
 } from './utils/constants.js';
 import {
   addTaskToState,
@@ -29,6 +30,7 @@ import {
   fulfilled as labelsFulfilled,
   rejected as labelsRejected,
 } from './store/labelsSlice.js';
+import { addUsersToState } from './store/usersSlice.js';
 import localStorageMiddleware from './store/middlewares.js';
 
 export default async (instanceApp) => {
@@ -47,20 +49,28 @@ export default async (instanceApp) => {
     const database = getDatabase(instanceApp, URL_DATABASE);
     const tasksRef = ref(database, FIREBASE_TASKS_ROUTE);
     const labelsRef = ref(database, FIREBASE_LABELS_ROUTE);
+    const usersRef = ref(database, FIREBASE_USERS_ROUTE);
 
     const addTaskToFirebase = (task) => push(tasksRef, task);
 
     const addLabelToFirebase = (label) => push(labelsRef, label);
 
+    const getUsers = () => {
+      const usersQuery = query(usersRef);
+      onValue(usersQuery, (snap) => {
+        const users = snap.val();
+        dispatch(addUsersToState({ users }));
+      });
+    };
+
     const getUserTasks = (uid) => {
-      const userTasksRef = query(tasksRef, orderByChild("addedByUid"), equalTo(uid));
+      const userTasksRef = query(tasksRef, orderByChild("addedByUid"));
 
       dispatch(tasksPending());
 
       onValue(userTasksRef, (snap) => {
         const tasks = snap.val();
-
-        dispatch(addTaskToState({ tasks }));
+        dispatch(addTaskToState({ tasks, uid }));
         dispatch(tasksFulfilled());
       }, () => {
         dispatch(tasksRejected());
@@ -82,8 +92,8 @@ export default async (instanceApp) => {
     };
 
     const memoValues = useMemo(() => ({
-      addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase, database,
-    }), [addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase, database]);
+      addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase, database, getUsers,
+    }), [addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase, database, getUsers]);
 
     return (
       <apiContext.Provider value={memoValues}>
