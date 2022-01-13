@@ -13,54 +13,29 @@ const defaultUserSettings = {
   surname: '',
 };
 
-export const sendUserData = createAsyncThunk(
-  'user/sendUserData',
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
   async ({ userData, db }, { rejectWithValue }) => {
     const {
       uid,
-      email,
-      displayName,
-      stsTokenManager: { accessToken },
+      lastLoginAt,
+      accessToken,
     } = userData;
 
     const userRef = query(ref(db, `${FIREBASE_USERS_ROUTE}/${uid}`));
 
-    try {
-      get(userRef).then((snap) => {
-        if (snap.exists()) {
-          update(userRef, { accessToken });
-        } else {
-          set(userRef, {
-            ...defaultUserSettings,
-            email,
-            displayName,
-            uid,
-            accessToken,
-          });
-        }
-      });
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  },
-);
-
-export const getUserData = createAsyncThunk(
-  'user/getUserData',
-  async ({ userData, db }, { rejectWithValue }) => {
-    const { uid } = userData;
-    const userRef = query(ref(db, `${FIREBASE_USERS_ROUTE}/${uid}`));
-    let data;
-    try {
-      await get(userRef).then((snap) => {
-        if (snap.exists()) {
-          data = snap.val();
-        }
-      });
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
+    return get(userRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        return update(userRef, { accessToken, lastLoginAt })
+          .then(() => get(userRef));
+      }
+      return set(userRef, {
+        ...defaultUserSettings,
+        ...userData,
+      }).then(() => get(userRef));
+    })
+      .then((snap) => snap.val())
+      .catch((err) => rejectWithValue(err));
   },
 );
 
@@ -70,18 +45,11 @@ export const updateUserData = createAsyncThunk(
     uid, field, value, db,
   }, rejectWithValue) => {
     const userRef = query(ref(db, `${FIREBASE_USERS_ROUTE}/${uid}`));
-    let data;
-    try {
-      await update(userRef, { [field]: value });
-      await get(userRef).then((snap) => {
-        if (snap.exists()) {
-          data = snap.val();
-        }
-      });
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
+
+    return update(userRef, { [field]: value })
+      .then(() => get(userRef))
+      .then((snap) => snap.val())
+      .catch((err) => rejectWithValue(err));
   },
 );
 
@@ -90,14 +58,9 @@ const userSlice = createSlice({
   initialState: null,
   reducers: {
     setUser(state, action) {
-      const {
-        uid,
-        email,
-        displayName,
-        stsTokenManager: { accessToken },
-      } = action.payload;
+      const user = action.payload;
       return {
-        ...state, uid, email, displayName, accessToken, ...defaultUserSettings,
+        ...defaultUserSettings, ...state, ...user,
       };
     },
     clearUser() {
@@ -105,8 +68,8 @@ const userSlice = createSlice({
     },
   },
   extraReducers: {
-    [getUserData.fulfilled]: (state, action) => ({ ...action.payload }),
     [updateUserData.fulfilled]: (state, action) => ({ ...action.payload }),
+    [updateUser.fulfilled]: (state, action) => ({ ...action.payload }),
   },
 });
 
