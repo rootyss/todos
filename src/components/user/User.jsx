@@ -13,7 +13,7 @@ const User = () => {
   const {
     uid,
     email,
-    displayName,
+    displayName = t('mainMenu.userAnonim'),
     firstname,
     surname,
   } = useSelector(getUser);

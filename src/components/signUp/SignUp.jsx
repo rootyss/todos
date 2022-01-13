@@ -25,14 +25,14 @@ const SignUpForm = ({ auth }) => {
   }, [inputRef]);
 
   const SigninSchema = yup.object({
-    email: yup.string().email(t('errors.incorrectEmail')).required(t('errors.incorrectEmail')),
+    useremail: yup.string().email(t('errors.incorrectEmail')).required(t('errors.incorrectEmail')),
     password: yup.string().required(t('errors.requiredEmail')).min(6, t('errors.minPasswordLength')),
     chekpassword: yup.string().oneOf([yup.ref('password'), null], t('errors.passMatch')),
   });
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      useremail: '',
       password: '',
       chekpassword: '',
     },
@@ -41,10 +41,18 @@ const SignUpForm = ({ auth }) => {
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
-        const { email, password } = values;
-        const { user } = await createUserWithEmailAndPassword(auth.authFirebase, email, password);
-        user.displayName = user.displayName ? user.displayName : t('mainMenu.userAnonim');
-        const serUser = JSON.stringify(user);
+        const { useremail, password } = values;
+        const { user } = await createUserWithEmailAndPassword(auth.authFirebase, useremail, password);
+        const {
+          accessToken,
+          email,
+          metadata: { createdAt, lastLoginAt },
+          uid,
+        } = user;
+        const data = {
+          accessToken, email, createdAt, lastLoginAt, uid,
+        };
+        const serUser = JSON.stringify(data);
         auth.logIn(serUser);
         return null;
       } catch (err) {
@@ -79,12 +87,12 @@ const SignUpForm = ({ auth }) => {
                   className={getClasses('email')}
                   type="email"
                   id="email"
-                  name="email"
+                  name="useremail"
                   autoComplete="email"
                   required
                   placeholder={t('placeholders.email')}
                   onChange={formik.handleChange}
-                  value={formik.values.email}
+                  value={formik.values.useremail}
                   ref={inputRef}
                 />
                 <label className="form-label" htmlFor="email">{t('label.email')}</label>

@@ -6,7 +6,7 @@ import {
   useNavigate,
   useLocation,
 } from 'react-router-dom';
-import { getFormatedDate } from '../../utils/utils.js';
+import getFormatedDate from '../../utils/utils.js';
 import Label from '../label/Label.jsx';
 import {
   FIREBASE_TASKS_ROUTE,
