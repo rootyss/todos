@@ -1,4 +1,4 @@
-export const getFormatedDate = (date, sep) => {
+export default (date, sep) => {
   const currentDate = new Date(date);
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
