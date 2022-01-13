@@ -29,7 +29,7 @@ import {
   fulfilled as labelsFulfilled,
   rejected as labelsRejected,
 } from './store/labelsSlice.js';
-import { localStorageMiddleware } from './store/middlewares.js';
+import localStorageMiddleware from './store/middlewares.js';
 
 export default async (instanceApp) => {
   const i18n = i18next.createInstance();
