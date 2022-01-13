@@ -41,7 +41,7 @@ import Archive from './components/archive/Archive.jsx';
 import TaskPage from './components/taskPage/TaskPage.jsx';
 import User from './components/user/User.jsx';
 import {
-  setUser, clearUser, getUser, sendUserData, getUserData,
+  setUser, clearUser, getUser, updateUser,
 } from './store/userSlice.js';
 
 const AuthProvider = ({ children }) => {
@@ -55,9 +55,8 @@ const AuthProvider = ({ children }) => {
 
   const logIn = (userIn) => {
     const userData = JSON.parse(userIn);
-    console.log(userData);
     dispatch(setUser(userData));
-    dispatch(sendUserData({ userData, db: api.database }));
+    dispatch(updateUser({ userData, db: api.database }));
   };
   const logOut = () => {
     dispatch(clearUser());
@@ -76,7 +75,6 @@ const AuthProvider = ({ children }) => {
 };
 
 const RequireAuth = () => {
-  const dispatch = useDispatch();
   const user = useSelector(getUser);
   const location = useLocation();
   const api = useApi();
@@ -85,7 +83,6 @@ const RequireAuth = () => {
     if (!user) return;
     api.getUserTasks(user.uid);
     api.getUserLabels(user.uid);
-    dispatch(getUserData({ userData: user, db: api.database }));
   }, []);
 
   if (!user) {
