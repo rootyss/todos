@@ -381,6 +381,10 @@ btn-primary:disabled, .btn-primary.disabled {
 .p-5 {
   padding: 3rem;
 }
+.isExpired {
+  color: red;
+  font-weight: bold;
+}
 .mr-auto {
   margin-right: auto;
 }
