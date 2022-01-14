@@ -24,7 +24,7 @@ const Task = ({
   description,
   labels = [],
   priority,
-  completed,
+  isCompleted,
 }) => {
   const dispatch = useDispatch();
   const api = useApi();
@@ -53,7 +53,7 @@ const Task = ({
   return (
     <div className="task-list-item__body">
       <div className="task-list-item__child" />
-      {completed ? null : (
+      {isCompleted ? null : (
         <button onClick={handleCompleted} type="button" role="checkbox" className="task-checkbox" aria-checked="false">
           <div className="task_checkbox__circle">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

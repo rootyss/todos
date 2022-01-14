@@ -31,7 +31,7 @@ const RenderTask = ({ task }) => {
       id={id}
       labels={labels}
       priority={priority}
-      completed={isCompleted}
+      isCompleted={isCompleted}
     />
   );
 };

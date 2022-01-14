@@ -15,7 +15,7 @@ const ViewTask = () => {
   const task = useSelector(getCurrentTask);
   const dispatch = useDispatch();
   const {
-    content, description, dateAdded, dateCompleted, priority, labels,
+    content, description, dateAdded, dateCompleted, priority, labels, isCompleted,
   } = task;
   const currentTabDetailsName = useSelector(getCurrentTabDetailsName);
 
@@ -48,6 +48,7 @@ const ViewTask = () => {
         description={description}
         labels={labels}
         priority={priority}
+        isCompleted={isCompleted}
       />
       <div className="task-details">
         <div role="tablist" className="task-details--buttons">
