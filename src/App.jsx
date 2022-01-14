@@ -10,13 +10,12 @@ import {
 import { getAuth, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  TODO_ROUTE,
   LOGIN_ROUTE,
   NOTE_ROUTE,
   REG_ROUTE,
   INBOX_ROUTE,
+  OUTBOX_ROUTE,
   TODAY_ROUTE,
-  UPCOMING_ROUTE,
   LABELS_ROUTE,
   ARCHIVE_ROUTE,
   USER_PROFILE_ROUTE,
@@ -30,10 +29,9 @@ import Note from './components/note/Note.jsx';
 import Labels from './components/labels/Labels.jsx';
 import SignUp from './components/signUp/SignUp.jsx';
 import Inbox from './components/inbox/Inbox.jsx';
-import ToDo from './components/todo/ToDo.jsx';
+import Outbox from './components/outbox/Outbox.jsx';
 import LeftMenu from './components/leftMenu/LeftMenu.jsx';
 import Today from './components/today/Today.jsx';
-import Upcoming from './components/upcoming/Upcoming.jsx';
 import useApi from './hooks/useApi.jsx';
 import ModalWindow from './components/modals/index.jsx';
 import LabelSearch from './components/labelSearch/LabelSearch.jsx';
@@ -107,10 +105,9 @@ const RoutesApp = () => {
         <Route path={REG_ROUTE} element={<SignUp />} />
         <Route path={LOGIN_ROUTE} element={<Login />} />
         <Route element={<RequireAuth />}>
-          <Route path={TODO_ROUTE} element={<ToDo />} />
           <Route path={INBOX_ROUTE} element={<Inbox />} />
+          <Route path={OUTBOX_ROUTE} element={<Outbox />} />
           <Route path={TODAY_ROUTE} element={<Today />} />
-          <Route path={UPCOMING_ROUTE} element={<Upcoming />} />
           <Route path={NOTE_ROUTE} element={<Note />} />
           <Route path={LABELS_ROUTE} element={<Labels />}>
             <Route path=":labelId" element={<LabelSearch />} />
