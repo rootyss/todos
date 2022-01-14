@@ -26,6 +26,7 @@ export default {
       'auth/wrong-password': 'Некорректный пароль',
       'auth/email-already-in-use': 'Адрес электронной почты уже используется',
       'auth/network-request-failed': 'Превышено число запросов',
+      'auth/user-not-found': 'Пользователь не найден',
       incorrectEmail: 'Некорректно введён адрес электронной почты',
       requiredEmail: 'Почта - обязательное поле',
       required: 'Обязательное поле',
@@ -59,10 +60,10 @@ export default {
     leftMenuTop: {
       inbox: 'Входящие',
       today: 'Сегодня',
-      upcoming: 'Предстоящие',
       notes: 'Заметки',
       labels: 'Метки',
       archive: 'Архив',
+      outbox: 'Исходящие',
     },
     inbox: {
       comments: 'Комментарии',
@@ -95,6 +96,13 @@ export default {
     locales: 'ru',
     userSetting: {
       header: 'Пользовательские данные',
+    },
+    today: {
+      inbox: 'Входящие',
+      outbox: 'Исходящие',
+    },
+    task: {
+      dateCompleted: "Завершить до:",
     },
   },
 };

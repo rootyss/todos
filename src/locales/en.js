@@ -26,6 +26,7 @@ export default {
       'auth/wrong-password': 'Wrong password',
       'auth/email-already-in-use': 'Email already in use',
       'auth/network-request-failed': 'Network request failed',
+      'auth/user-not-found': 'User not found',
       incorrectEmail: 'Invalid email address',
       requiredEmail: 'Email - required field',
       required: 'Required field',
@@ -59,10 +60,10 @@ export default {
     leftMenuTop: {
       inbox: 'Inbox',
       today: 'Today',
-      upcoming: 'Upcoming',
       notes: 'Notes',
       labels: 'Labels',
       archive: 'Archive',
+      outbox: 'Outbox',
     },
     inbox: {
       comments: 'Comments',
@@ -95,6 +96,13 @@ export default {
     locales: 'en',
     userSetting: {
       header: 'User data',
+    },
+    today: {
+      inbox: 'Входящие',
+      outbox: 'Исходящие',
+    },
+    task: {
+      dateCompleted: "Complete by:",
     },
   },
 };
