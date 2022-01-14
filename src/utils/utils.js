@@ -5,3 +5,9 @@ export default (date, sep) => {
   const day = currentDate.getDate();
   return [year, month, day].join(sep);
 };
+
+export const isExpired = (dateCompleted) => {
+  const date = new Date(dateCompleted).setHours(0, 0, 0, 0);
+  const today = new Date().setHours(0, 0, 0, 0);
+  return date < today;
+};
