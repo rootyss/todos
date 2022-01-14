@@ -42,7 +42,8 @@ const SignUpForm = ({ auth }) => {
       setAuthFailed(false);
       try {
         const { useremail, password } = values;
-        const { user } = await createUserWithEmailAndPassword(auth.authFirebase, useremail, password);
+        const resp = await createUserWithEmailAndPassword(auth.authFirebase, useremail, password);
+        const { user } = resp;
         const {
           accessToken,
           email,
