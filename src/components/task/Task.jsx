@@ -1,6 +1,7 @@
 import React from 'react';
 import { update, ref } from "firebase/database";
 import { useTranslation } from 'react-i18next';
+import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   useNavigate,
@@ -19,12 +20,12 @@ import { openModal } from '../../store/modalSlice.js';
 const Task = ({
   id,
   content,
-  dateAdded,
   dateCompleted,
   description,
   labels = [],
   priority,
   isCompleted,
+  isExpired,
 }) => {
   const dispatch = useDispatch();
   const api = useApi();
@@ -50,6 +51,8 @@ const Task = ({
     navigate(`/task/${taskId}`, { state: { backgroundLocation: location } });
   };
 
+  const classNameDate = cn("control-tag", { isExpired });
+
   return (
     <div className="task-list-item__body">
       <div className="task-list-item__child" />
@@ -72,8 +75,8 @@ const Task = ({
           </div>
         </div>
         <div className="task-list-item__infotags">
-          <span className="control-tag">{getFormatedDate(dateAdded, '-')}</span>
-          <span className="control-tag">{getFormatedDate(dateCompleted, '-')}</span>
+          <span className="control-tag">{t('task.dateCompleted')}</span>
+          <span className={classNameDate}>{getFormatedDate(dateCompleted, '-')}</span>
           <span className={`control-tag priority-tag priority-tag-${priority}`} />
           <div className="d-flex" onClick={(e) => e.stopPropagation()}>{labels.map(({ key, label }) => <Label key={key} label={label} />)}</div>
         </div>

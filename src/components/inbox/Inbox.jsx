@@ -6,6 +6,7 @@ import { openModal, getModalInfo } from '../../store/modalSlice.js';
 import { getTasks, getFetchingStateTasks } from '../../store/tasksSlice.js';
 import { modalTypes } from '../../utils/constants.js';
 import { getUser } from '../../store/userSlice.js';
+import { isExpired } from '../../utils/utils.js';
 
 const Inbox = () => {
   const { t } = useTranslation();
@@ -60,6 +61,7 @@ const Inbox = () => {
                           labels={labels}
                           priority={priority}
                           isCompleted={isCompleted}
+                          isExpired={isExpired(dateCompleted)}
                         />
                       </li>
                     );
