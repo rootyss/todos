@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   modalTypes,
-  TODO_ROUTE,
+  INBOX_ROUTE,
   LOGIN_ROUTE,
   REG_ROUTE,
   USER_PROFILE_ROUTE,
@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <nav className="bg-light shadow-sm navbar navbar-light">
       <div className="container-fluid">
-        <Link className="navbar-brand" to={TODO_ROUTE}>{t('logo.text')}</Link>
+        <Link className="navbar-brand" to={INBOX_ROUTE}>{t('logo.text')}</Link>
         <div className="navbar-collapse collapse">
           <div className="container-fluid" />
           <ul className="navbar-nav">
