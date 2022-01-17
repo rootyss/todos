@@ -41,6 +41,7 @@ import User from './components/user/User.jsx';
 import {
   setUser, clearUser, getUser, updateUser,
 } from './store/userSlice.js';
+import { getMenuStatus, toggleStatus } from './store/leftMenuSlice.js';
 
 const AuthProvider = ({ children }) => {
   const api = useApi();
@@ -76,6 +77,12 @@ const RequireAuth = () => {
   const user = useSelector(getUser);
   const location = useLocation();
   const api = useApi();
+  const isOpen = useSelector(getMenuStatus);
+  const dispatch = useDispatch();
+
+  const handleToggleStatus = () => {
+    dispatch(toggleStatus(!isOpen));
+  };
 
   useEffect(() => {
     if (!user) return;
@@ -89,6 +96,10 @@ const RequireAuth = () => {
   }
   return (
     <>
+      <div
+        className={isOpen ? "left-menu-overlay-open" : "left-menu-overlay-close"}
+        onClick={handleToggleStatus}
+      />
       <LeftMenu />
       <Outlet />
     </>

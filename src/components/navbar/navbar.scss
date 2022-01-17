@@ -22,13 +22,12 @@
   font-weight: bold;
 }
 .navbar-collapse {
-  flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
 }
 .navbar-nav {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
@@ -61,12 +60,11 @@
   .navbar-collapse {
   display: flex;
   flex-basis: auto;
+  justify-content: flex-end;
 }
 .navbar-nav {
-  flex-direction: row;
 
   .add-task {
-    
     &:hover {
       background-color: rgba(72,72,72,.1);
     }

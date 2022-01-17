@@ -13,6 +13,7 @@ import { openModal } from '../../store/modalSlice.js';
 import useAuth from '../../hooks/useAuth.jsx';
 import AddTaskIcon from '../../../add.svg';
 import { getUser } from '../../store/userSlice.js';
+import NavControl from '../navControl/NavControl.jsx';
 
 const Navbar = () => {
   const user = useSelector(getUser);
@@ -27,9 +28,9 @@ const Navbar = () => {
   return (
     <nav className="bg-light shadow-sm navbar navbar-light">
       <div className="container-fluid">
+        <NavControl />
         <Link className="navbar-brand" to={INBOX_ROUTE}>{t('logo.text')}</Link>
         <div className="navbar-collapse collapse">
-          <div className="container-fluid" />
           <ul className="navbar-nav">
             {user
               ? (
