@@ -4,6 +4,7 @@ import { labelsSliceReducer } from './labelsSlice.js';
 import { fetchingStateReducer } from './fetchingState.js';
 import { userSliceReducer } from './userSlice.js';
 import { usersSliceReducer } from './usersSlice.js';
+import { leftMenuSliceReducer } from './leftMenuSlice.js';
 
 export default {
   modal: modalSliceReducer,
@@ -12,4 +13,5 @@ export default {
   fetchingState: fetchingStateReducer,
   user: userSliceReducer,
   usersInfo: usersSliceReducer,
+  leftMenu: leftMenuSliceReducer,
 };
