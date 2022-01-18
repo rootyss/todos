@@ -56,10 +56,24 @@ const User = () => {
           <div className="user-wrapper">
             <form className="w-100" onSubmit={formik.handleSubmit}>
               <div className="mb-3">
-                <label className="" htmlFor="displayName">
-                  Имя пользователя
+                <label className="label-user-data" htmlFor="firstname">
+                  {t('userSetting.email')}
                   <input
-                    className=""
+                    className="input-data"
+                    type="text"
+                    id="email"
+                    name="email"
+                    autoComplete="email"
+                    disabled
+                    value={email}
+                  />
+                </label>
+              </div>
+              <div className="mb-3">
+                <label className="label-user-data" htmlFor="displayName">
+                  {t('userSetting.username')}
+                  <input
+                    className="input-data"
                     type="text"
                     id="displayName"
                     name="displayName"
@@ -73,10 +87,10 @@ const User = () => {
                 </label>
               </div>
               <div className="mb-3">
-                <label className="" htmlFor="firstname">
-                  Имя
+                <label className="label-user-data" htmlFor="firstname">
+                  {t('userSetting.firstname')}
                   <input
-                    className=""
+                    className="input-data"
                     type="text"
                     id="firstname"
                     name="firstname"
@@ -90,10 +104,10 @@ const User = () => {
                 </label>
               </div>
               <div className="mb-3">
-                <label className="" htmlFor="surname">
-                  Фамилия
+                <label className="label-user-data" htmlFor="surname">
+                  {t('userSetting.surname')}
                   <input
-                    className=""
+                    className="input-data"
                     type="text"
                     id="surname"
                     name="surname"
@@ -106,7 +120,6 @@ const User = () => {
                   />
                 </label>
               </div>
-
             </form>
           </div>
         </div>

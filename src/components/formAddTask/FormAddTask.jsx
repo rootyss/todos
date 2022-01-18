@@ -36,11 +36,12 @@ const Calendar = (props) => {
   registerLocale("ru", ru);
   const { setFieldValue } = useFormikContext();
   const [field] = useField(props);
-  const { name } = props;
+  const { name, calendarClassName } = props;
   return (
     <DatePicker
       locale={t('locales')}
       name={name}
+      className="add-task-input"
       selected={(field.value && new Date(field.value)) || null}
       onChange={(val) => {
         setFieldValue(field.name, val);
@@ -170,6 +171,7 @@ const FormAddTask = ({ close }) => {
           </div>
           <div className="form-floating mb-3">
             <select
+              className="add-task-input"
               name="priority"
               value={props.values.priority}
               onChange={props.handleChange}
@@ -183,10 +185,11 @@ const FormAddTask = ({ close }) => {
               <option value="4" label="4" />
             </select>
           </div>
-          <div className="form-floating mb-3">
+          <div className="form-floating mb-3 form-label-search">
             {renderCurrentLabels(currentLabels)}
-            <span className="label-search">{t('fullAddTask.labelSearch')}</span>
+            <span className="form-label-font">{t('fullAddTask.labelSearch')}</span>
             <input
+              className="add-task-input"
               name="labelSearch"
               type="text"
               value={props.values.labelSearch}
@@ -197,18 +200,18 @@ const FormAddTask = ({ close }) => {
             </div>
           </div>
           <div className="mb-3">
-            <label htmlFor="addedToUid">
-              Кому (почта):
-              <input
-                id="addedToUid"
-                name="addedToUid"
-                type="text"
-                value={props.values.addedToUid}
-                onChange={props.handleChange}
-              />
-            </label>
+            <span className="form-label-font">{t('fullAddTask.executor')}</span>
+            <input
+              className="add-task-input ml-1"
+              id="addedToUid"
+              name="addedToUid"
+              type="text"
+              value={props.values.addedToUid}
+              onChange={props.handleChange}
+            />
           </div>
           <div className="form-floating mb-3">
+            <span className="form-label-font">{t('fullAddTask.dateCompleted')}</span>
             <Calendar name="dateCompleted" />
           </div>
           <div className="form-fast-add-task-buttons">

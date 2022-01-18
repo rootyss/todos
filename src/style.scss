@@ -162,17 +162,6 @@ footer {
 .form-control:focus::placeholder {
   color: transparent;
 }
-.form-floating>label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  padding: 1rem 0.75rem;
-  pointer-events: none;
-  border: 1px solid transparent;
-  transform-origin: 0 0;
-  transition: opacity 0.1s ease-in-out,transform 0.1s ease-in-out;
-}
 .content {
   display: flex;
   flex-direction: column;
@@ -192,11 +181,6 @@ footer {
   white-space: nowrap;
   background-color: transparent;
   border: none;
-
-  &:hover {
-    background-color: #eee;
-    border-radius: 0.5rem;
-  }
 }
 .view-header {
   display: flex;
@@ -293,7 +277,7 @@ footer {
   border-radius: 5px;
   cursor: pointer;
 }
-.label-search {
+.form-label-font {
   margin-right: 10px;
   color: #333;
   font-weight: bold;
@@ -309,6 +293,10 @@ footer {
 .label-item-disabled {
   cursor: default;
   background-color: #ff8d8d;
+}
+.form-label-search {
+  display: flex;
+  flex-direction: column;
 }
 .form-label {
   margin-bottom: 0.5rem;
@@ -391,6 +379,9 @@ btn-primary:disabled, .btn-primary.disabled {
 .mr-auto {
   margin-right: auto;
 }
+.ml-1 {
+  margin-left: 0.5rem;
+}
 .align-content-center {
   align-content: center;
 }
@@ -430,6 +421,24 @@ btn-primary:disabled, .btn-primary.disabled {
       box-shadow: 0 3px rgb(33,147,90) inset;
     }
   }
+}
+
+.label-user-data {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.input-data {
+  margin-top: 5px;
+  padding: 7px;
+  border-radius: 5px;
+  border: 1px solid rgba(34, 60, 80, 0.2);
+}
+.add-task-input {
+  padding: 2px;
+  border-radius: 5px;
+  border: 1px solid rgba(34, 60, 80, 0.4);
 }
 
 @import "components/modals/modals.scss";

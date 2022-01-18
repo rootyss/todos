@@ -86,8 +86,9 @@ const FastAddTaskForm = ({ close }) => {
       </div>
       <div className="mb-3">
         <label htmlFor="addedToUid">
-          Кому (почта):
+          {t('fullAddTask.executor')}
           <input
+            className="add-task-input ml-1"
             id="addedToUid"
             name="addedToUid"
             type="text"
