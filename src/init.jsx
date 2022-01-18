@@ -17,7 +17,7 @@ import {
   FIREBASE_TASKS_ROUTE,
   FIREBASE_LABELS_ROUTE,
   FIREBASE_USERS_ROUTE,
-  FIREBASE_COMMENTS_ROUTE
+  FIREBASE_COMMENTS_ROUTE,
 } from './utils/constants.js';
 import {
   addTaskToState,
@@ -96,8 +96,22 @@ export default async (instanceApp) => {
     };
 
     const memoValues = useMemo(() => ({
-      addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase, database, getUsers,
-    }), [addTaskToFirebase, getUserTasks, getUserLabels, addLabelToFirebase, database, getUsers]);
+      addTaskToFirebase,
+      getUserTasks,
+      getUserLabels,
+      addLabelToFirebase,
+      database,
+      getUsers,
+      addCommentToFirebase,
+    }), [
+      addTaskToFirebase,
+      getUserTasks,
+      getUserLabels,
+      addLabelToFirebase,
+      database,
+      getUsers,
+      addCommentToFirebase,
+    ]);
 
     return (
       <apiContext.Provider value={memoValues}>
