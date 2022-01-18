@@ -13,6 +13,7 @@ export const URL_DATABASE = 'https://todos-c6f25-default-rtdb.asia-southeast1.fi
 export const FIREBASE_TASKS_ROUTE = 'tasks/';
 export const FIREBASE_LABELS_ROUTE = 'labels/';
 export const FIREBASE_USERS_ROUTE = 'users/';
+export const FIREBASE_COMMENTS_ROUTE = 'comments/';
 
 export const modalTypes = {
   fastAddTask: 'FastAddTask',
