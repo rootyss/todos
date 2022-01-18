@@ -5,7 +5,7 @@ const tasksSlice = createSlice({
   name: 'tasksInfo',
   initialState: {
     tasks: [],
-    currentTabDetailsName: 'sub-tasks',
+    currentTabDetailsName: 'comments',
     fetchingState: 'none',
     currentTaskView: null,
   },
