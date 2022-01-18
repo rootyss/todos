@@ -17,6 +17,7 @@ import {
   FIREBASE_TASKS_ROUTE,
   FIREBASE_LABELS_ROUTE,
   FIREBASE_USERS_ROUTE,
+  FIREBASE_COMMENTS_ROUTE
 } from './utils/constants.js';
 import {
   addTaskToState,
@@ -50,10 +51,13 @@ export default async (instanceApp) => {
     const tasksRef = ref(database, FIREBASE_TASKS_ROUTE);
     const labelsRef = ref(database, FIREBASE_LABELS_ROUTE);
     const usersRef = ref(database, FIREBASE_USERS_ROUTE);
+    const commentsRef = ref(database, FIREBASE_COMMENTS_ROUTE);
 
     const addTaskToFirebase = (task) => push(tasksRef, task);
 
     const addLabelToFirebase = (label) => push(labelsRef, label);
+
+    const addCommentToFirebase = (comment) => push(commentsRef, comment);
 
     const getUsers = () => {
       const usersQuery = query(usersRef);
