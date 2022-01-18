@@ -581,6 +581,45 @@ button[aria-checked="true"] {
   z-index: 1;
   background-color:rgba(0, 0, 0, 0.5);
 }
+.form-comments {
+  display: flex;
+  margin-top: 20px;
+  div {
+    &:first-child {
+      flex: 1;
+    }
+  }
+  label {
+    width: 100%;
+  }
+}
+.text-comment {
+  border: 1px solid rgba(130, 130, 130, 0.5);
+  border-radius: 3px;
+  width: 100%;
+  &:focus-visible {
+    border: 1px solid rgba(130, 130, 130, 0.5);
+    border-radius: 3px;
+  }
+}
+.btn-send {
+  border: 1px solid rgba(130, 130, 130, 0.5);
+  border-radius: 3px;
+  height: 100%;
+  padding-right: 7px;
+  background-color: #6c686824;
+}
+i {
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    vertical-align: middle;
+}
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
 @media (min-width: 576px) {
   .container {
   max-width: 540px;
