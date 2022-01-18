@@ -82,6 +82,8 @@ export default {
       addedLabels: 'Добавленные метки:',
       labelSearch: 'Поиск меток:',
       selectPriority: 'Приоритет',
+      dateCompleted: 'Дата исполнения:',
+      executor: 'E-mail исполнителя:',
     },
     archivePage: {
       header: 'Завершенные задачи',
@@ -96,6 +98,10 @@ export default {
     locales: 'ru',
     userSetting: {
       header: 'Пользовательские данные',
+      email: 'Электронная почта',
+      username: 'Логин',
+      firstname: 'Имя',
+      surname: 'Фамилия',
     },
     today: {
       inbox: 'Входящие',

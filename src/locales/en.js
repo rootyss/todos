@@ -82,6 +82,8 @@ export default {
       addedLabels: 'Added labels:',
       labelSearch: 'Search label:',
       selectPriority: 'Priority',
+      dateCompleted: 'Date completed:',
+      executor: 'Email executor:',
     },
     archivePage: {
       header: 'Completed tasks',
@@ -92,6 +94,10 @@ export default {
     },
     taskPage: {
       header: 'Task view',
+      email: 'Электронная почта',
+      username: 'Логин',
+      firstname: 'Имя',
+      surname: 'Фамилия',
     },
     locales: 'en',
     userSetting: {
