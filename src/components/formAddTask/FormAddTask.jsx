@@ -36,7 +36,7 @@ const Calendar = (props) => {
   registerLocale("ru", ru);
   const { setFieldValue } = useFormikContext();
   const [field] = useField(props);
-  const { name, calendarClassName } = props;
+  const { name } = props;
   return (
     <DatePicker
       locale={t('locales')}
