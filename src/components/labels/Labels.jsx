@@ -31,6 +31,7 @@ const Labels = () => {
       const labels = labls.replace(/\s+/g, '').split(',');
       try {
         labels.forEach((label) => {
+          if (label.length <= 0) return;
           api.addLabelToFirebase({ label: label.toLowerCase(), userUid });
         });
         resetForm();
