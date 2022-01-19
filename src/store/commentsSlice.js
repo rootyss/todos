@@ -9,8 +9,8 @@ const commentsSlice = createSlice({
       const { comments } = action.payload;
       const keysCommentsData = _.entries(comments);
       const commentsList = keysCommentsData.map(([commentId, {
-              userUid, taskId, text, dateCommentAdded,
-            }]) => ({
+        userUid, taskId, text, dateCommentAdded,
+      }]) => ({
         commentId, userUid, taskId, text, dateCommentAdded,
       }));
       return commentsList;
