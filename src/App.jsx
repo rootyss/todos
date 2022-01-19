@@ -89,6 +89,7 @@ const RequireAuth = () => {
     api.getUserTasks(user.uid);
     api.getUserLabels(user.uid);
     api.getUsers();
+    api.getComments();
   }, []);
 
   if (!user) {

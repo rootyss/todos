@@ -33,6 +33,7 @@ import {
 } from './store/labelsSlice.js';
 import { addUsersToState } from './store/usersSlice.js';
 import localStorageMiddleware from './store/middlewares.js';
+import { addCommentsToState } from './store/commentsSlice.js';
 
 export default async (instanceApp) => {
   const i18n = i18next.createInstance();
@@ -95,6 +96,17 @@ export default async (instanceApp) => {
       });
     };
 
+    const getComments = () => {
+      const commentsQuery = query(commentsRef);
+
+      onValue(commentsQuery, (snap) => {
+        const comments = snap.val();
+        dispatch(addCommentsToState({ comments }));
+      }, (err) => {
+        console.log(err);
+      });
+    };
+
     const memoValues = useMemo(() => ({
       addTaskToFirebase,
       getUserTasks,
@@ -103,6 +115,7 @@ export default async (instanceApp) => {
       database,
       getUsers,
       addCommentToFirebase,
+      getComments,
     }), [
       addTaskToFirebase,
       getUserTasks,
@@ -111,6 +124,7 @@ export default async (instanceApp) => {
       database,
       getUsers,
       addCommentToFirebase,
+      getComments,
     ]);
 
     return (
