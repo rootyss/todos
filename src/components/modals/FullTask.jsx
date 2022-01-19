@@ -15,7 +15,14 @@ const ViewTask = () => {
   const task = useSelector(getCurrentTask);
   const dispatch = useDispatch();
   const {
-    content, description, dateAdded, dateCompleted, priority, labels, isCompleted,
+    content,
+    description,
+    dateAdded,
+    dateCompleted,
+    priority,
+    labels,
+    isCompleted,
+    addedToUid,
   } = task;
   const currentTabDetailsName = useSelector(getCurrentTabDetailsName);
 
@@ -42,6 +49,7 @@ const ViewTask = () => {
   return (
     <>
       <Task
+        addedToUid={addedToUid}
         content={content}
         dateAdded={dateAdded}
         dateCompleted={dateCompleted}
