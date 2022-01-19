@@ -7,6 +7,7 @@ export default {
       fastAddTask: 'Добавить задачу',
       add: 'Добавить',
       cancel: 'Отмена',
+      delete: 'Удалить',
     },
     label: {
       email: 'Почта',

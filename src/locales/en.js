@@ -7,6 +7,7 @@ export default {
       fastAddTask: 'Add task',
       add: 'Add',
       cancel: 'Cancel',
+      delete: 'Delete',
     },
     label: {
       email: 'Email',
