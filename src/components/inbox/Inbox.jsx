@@ -36,7 +36,7 @@ const Inbox = () => {
               {isRenderTasks ? (
                 <ul className="listbox-list">
                   {tasks.filter(({ addedToUid }) => addedToUid === user.uid).map(({
-                    addedBbyUid,
+                    addedToUid,
                     content,
                     dateAdded,
                     dateCompleted,
@@ -51,7 +51,7 @@ const Inbox = () => {
                     return (
                       <li key={id} className="task-list-item">
                         <Task
-                          addedBbyUid={addedBbyUid}
+                          addedToUid={addedToUid}
                           content={content}
                           dateAdded={dateAdded}
                           dateCompleted={dateCompleted}

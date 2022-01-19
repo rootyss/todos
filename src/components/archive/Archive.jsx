@@ -26,8 +26,7 @@ const Archive = () => {
           </header>
           <ul className="listbox-list">
             {currentTasks.map(({
-              addedBbyUid,
-              assignedByUid,
+              addedToUid,
               content,
               dateAdded,
               dateCompleted,
@@ -41,8 +40,7 @@ const Archive = () => {
               <li key={id} className="task-list-item">
                 <Task
                   handleViewTask={handleViewTask(id)}
-                  addedBbyUid={addedBbyUid}
-                  assignedByUid={assignedByUid}
+                  addedToUid={addedToUid}
                   content={content}
                   dateAdded={dateAdded}
                   dateCompleted={dateCompleted}

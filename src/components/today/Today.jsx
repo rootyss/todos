@@ -31,7 +31,7 @@ const Today = () => {
                     {// eslint-disable-next-line max-len
                       tasks.filter(({ dateCompleted, addedToUid }) => (new Date(dateCompleted).getTime() <= new Date().getTime())
                     && (addedToUid === user.uid)).map(({
-                        addedBbyUid,
+                        addedToUid,
                         content,
                         dateAdded,
                         dateCompleted,
@@ -46,7 +46,7 @@ const Today = () => {
                         return (
                           <li key={id} className="task-list-item">
                             <Task
-                              addedBbyUid={addedBbyUid}
+                              addedToUid={addedToUid}
                               content={content}
                               dateAdded={dateAdded}
                               dateCompleted={dateCompleted}
