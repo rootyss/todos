@@ -1,7 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { CookiesProvider } from 'react-cookie';
 import {
-  getDatabase, ref, push, equalTo, query, orderByChild, onValue,
+  getDatabase,
+  ref,
+  push,
+  equalTo,
+  query,
+  orderByChild,
+  onValue,
+  remove,
 } from "firebase/database";
 import { Provider, useDispatch } from 'react-redux';
 import "./style.scss";
@@ -60,6 +67,11 @@ export default async (instanceApp) => {
 
     const addCommentToFirebase = (comment) => push(commentsRef, comment);
 
+    const deleteComment = (id) => {
+      const commentRef = query(ref(database, `${FIREBASE_COMMENTS_ROUTE}/${id}`));
+      remove(commentRef);
+    };
+
     const getUsers = () => {
       const usersQuery = query(usersRef);
       onValue(usersQuery, (snap) => {
@@ -116,6 +128,7 @@ export default async (instanceApp) => {
       getUsers,
       addCommentToFirebase,
       getComments,
+      deleteComment,
     }), [
       addTaskToFirebase,
       getUserTasks,
@@ -125,6 +138,7 @@ export default async (instanceApp) => {
       getUsers,
       addCommentToFirebase,
       getComments,
+      deleteComment,
     ]);
 
     return (
