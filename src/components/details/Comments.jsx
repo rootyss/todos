@@ -6,6 +6,35 @@ import useApi from '../../hooks/useApi.jsx';
 import { getUser } from '../../store/userSlice.js';
 import { getModalInfo } from '../../store/modalSlice.js';
 import Spinner from '../spinner/Spinner.jsx';
+import { getComments } from '../../store/commentsSlice.js';
+import { getUsers } from '../../store/usersSlice.js';
+import getDate from '../../utils/utils.js';
+
+const renderComments = (tId) => {
+  const api = useApi();
+  const comments = useSelector(getComments);
+  const users = useSelector(getUsers);
+
+  const handleDeleteComment = (id) => () => api.deleteComment(id);
+
+  return comments.filter(({ taskId }) => taskId === tId)
+    .map(({
+      commentId, dateCommentAdded, text, userUid,
+    }) => {
+      const { displayName } = users.find(({ uid }) => uid === userUid);
+
+      return (
+        <div key={commentId} className="comment-wrapper">
+          <p className="comment-text">{text}</p>
+          <div className="comment-info">
+            <span>{displayName}</span>
+            <span>{getDate(dateCommentAdded, '-')}</span>
+            <button type="button" onClick={handleDeleteComment(commentId)}>Delete</button>
+          </div>
+        </div>
+      );
+    });
+};
 
 const Comments = () => {
   const userUid = useSelector(getUser).uid;
@@ -36,6 +65,9 @@ const Comments = () => {
 
   return (
     <div>
+      <div className="comments-list">
+        {renderComments(taskId)}
+      </div>
       <form className="form-comments" onSubmit={formik.handleSubmit}>
         <div>
           <label htmlFor="text">
