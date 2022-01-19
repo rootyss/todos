@@ -3,7 +3,10 @@ import _ from 'lodash';
 
 const usersSlice = createSlice({
   name: 'usersInfo',
-  initialState: [],
+  initialState: {
+    users: [],
+    fetchingState: null,
+  },
   reducers: {
     addUsersToState(state, action) {
       const { users } = action.payload;
@@ -13,11 +16,17 @@ const usersSlice = createSlice({
       }) => ({
         uid, displayName, firstname, surname, email,
       }));
-      return usersList;
+      return { ...state, users: usersList };
     },
+    pending: (state) => ({ ...state, fetchingState: 'pending' }),
+    fulfilled: (state) => ({ ...state, fetchingState: 'finished' }),
+    rejected: (state) => ({ ...state, fetchingState: 'error' }),
   },
 });
 
-export const getUsers = (state) => state.usersInfo;
-export const { addUsersToState } = usersSlice.actions;
+export const getFetchingStateUsers = (state) => state.usersInfo.fetchingState;
+export const getUsers = (state) => state.usersInfo.users;
+export const {
+  addUsersToState, pending, fulfilled, rejected,
+} = usersSlice.actions;
 export const usersSliceReducer = usersSlice.reducer;

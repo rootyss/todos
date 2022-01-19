@@ -38,7 +38,12 @@ import {
   fulfilled as labelsFulfilled,
   rejected as labelsRejected,
 } from './store/labelsSlice.js';
-import { addUsersToState } from './store/usersSlice.js';
+import {
+  addUsersToState,
+  pending as usersPending,
+  fulfilled as usersFulfilled,
+  rejected as usersReject,
+} from './store/usersSlice.js';
 import localStorageMiddleware from './store/middlewares.js';
 import { addCommentsToState } from './store/commentsSlice.js';
 
@@ -74,9 +79,13 @@ export default async (instanceApp) => {
 
     const getUsers = () => {
       const usersQuery = query(usersRef);
+      dispatch(usersPending());
       onValue(usersQuery, (snap) => {
         const users = snap.val();
         dispatch(addUsersToState({ users }));
+        dispatch(usersFulfilled());
+      }, () => {
+        dispatch(usersReject());
       });
     };
 
