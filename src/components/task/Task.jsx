@@ -45,11 +45,13 @@ const Task = ({
   };
 
   const renderExecutor = () => {
-    const { displayName } = users.find(({ uid }) => uid === addedToUid);
+    const username = users.find(({ uid }) => uid === addedToUid)?.displayName;
+    if (!username) return null;
     return (
-      <span>
-        Исполнитель:
-        {displayName}
+      <span className="control-tag ml-a">
+        {t('task.executor')}
+        :
+        {username}
       </span>
     );
   };
