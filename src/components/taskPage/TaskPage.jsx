@@ -6,8 +6,7 @@ import Task from '../task/Task.jsx';
 
 const RenderTask = ({ task }) => {
   const {
-    addedBbyUid,
-    assignedByUid,
+    addedToUid,
     content,
     dateAdded,
     dateCompleted,
@@ -21,8 +20,7 @@ const RenderTask = ({ task }) => {
 
   return (
     <Task
-      addedBbyUid={addedBbyUid}
-      assignedByUid={assignedByUid}
+      addedToUid={addedToUid}
       content={content}
       dateAdded={dateAdded}
       dateCompleted={dateCompleted}
