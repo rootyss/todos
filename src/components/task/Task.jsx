@@ -16,10 +16,12 @@ import {
 import useApi from '../../hooks/useApi.jsx';
 import Actions from '../actions/Actions.jsx';
 import { openModal } from '../../store/modalSlice.js';
+import { getUsers, getFetchingStateUsers } from '../../store/usersSlice.js';
 
 const Task = ({
   id,
   content,
+  addedToUid,
   dateCompleted,
   description,
   labels = [],
@@ -32,12 +34,24 @@ const Task = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-
+  const users = useSelector(getUsers);
   const isOpen = useSelector((state) => state.modal.isOpen);
+  const fetchingUsersState = useSelector(getFetchingStateUsers);
+  const isUsers = fetchingUsersState === 'finished';
 
   const handleCompleted = () => {
     const taskRef = ref(api.database, `${FIREBASE_TASKS_ROUTE}/${id}`);
     setTimeout(() => update(taskRef, { isCompleted: true }), 1000);
+  };
+
+  const renderExecutor = () => {
+    const { displayName } = users.find(({ uid }) => uid === addedToUid);
+    return (
+      <span>
+        Исполнитель:
+        {displayName}
+      </span>
+    );
   };
 
   const handleViewTask = (taskId) => () => {
@@ -79,6 +93,7 @@ const Task = ({
           <span className={classNameDate}>{getFormatedDate(dateCompleted, '-')}</span>
           <span className={`control-tag priority-tag priority-tag-${priority}`} />
           <div className="d-flex" onClick={(e) => e.stopPropagation()}>{labels.map(({ key, label }) => <Label key={key} label={label} />)}</div>
+          {isUsers ? renderExecutor() : null}
         </div>
       </div>
       <Actions>
