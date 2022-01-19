@@ -110,6 +110,7 @@ export default {
     },
     task: {
       dateCompleted: "Завершить до:",
+      executor: "Исполнитель",
     },
   },
 };
