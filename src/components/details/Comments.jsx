@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import useApi from '../../hooks/useApi.jsx';
 import { getUser } from '../../store/userSlice.js';
@@ -11,6 +12,7 @@ import { getUsers } from '../../store/usersSlice.js';
 import getDate from '../../utils/utils.js';
 
 const renderComments = (tId) => {
+  const { t } = useTranslation();
   const api = useApi();
   const comments = useSelector(getComments);
   const users = useSelector(getUsers);
@@ -29,7 +31,7 @@ const renderComments = (tId) => {
           <div className="comment-info">
             <span>{displayName}</span>
             <span>{getDate(dateCommentAdded, '-')}</span>
-            <button type="button" onClick={handleDeleteComment(commentId)}>Delete</button>
+            <button type="button" onClick={handleDeleteComment(commentId)}>{t('buttons.delete')}</button>
           </div>
         </div>
       );
