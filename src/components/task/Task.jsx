@@ -99,7 +99,7 @@ const Task = ({
         </div>
       </div>
       <Actions>
-        <Actions.Comments id={id}>{t('inbox.comments')}</Actions.Comments>
+        {/*<Actions.Comments id={id}>{t('inbox.comments')}</Actions.Comments>*/}
       </Actions>
     </div>
   );
