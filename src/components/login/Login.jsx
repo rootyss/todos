@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import * as _ from 'lodash';
@@ -131,7 +131,7 @@ const Login = () => {
           <div className="card-footer">
             <div className="d-flex flex-column align-items-center">
               <span className="small mb-2">{t('loginPage.notReg')}</span>
-              <a href={REG_ROUTE}>{t('loginPage.urlToSignUp')}</a>
+              <Link to={REG_ROUTE}>{t('loginPage.urlToSignUp')}</Link>
             </div>
           </div>
         </div>

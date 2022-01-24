@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
 import * as _ from 'lodash';
@@ -144,7 +144,7 @@ const SignUpForm = ({ auth }) => {
           <div className="card-footer">
             <div className="d-flex flex-column align-items-center">
               <span className="small mb-2">{t('signupPage.alredyReg')}</span>
-              <a href={LOGIN_ROUTE}>{t('signupPage.urlToLogin')}</a>
+              <Link to={LOGIN_ROUTE}>{t('signupPage.urlToLogin')}</Link>
             </div>
           </div>
         </div>
