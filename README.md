@@ -5,6 +5,9 @@
     make start or npx webpack serve
 ## Deploymented project
     https://todos-inky-eta.vercel.app/
+## log:pass
+    1@1.com:123456
+    1@2.com:123456
 #### Менеджер задач со следующим функционалом
 * Backend на Firebase - firebase.google.com
 * Регистрация
