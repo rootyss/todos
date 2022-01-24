@@ -33,7 +33,7 @@ const LeftMenu = () => {
           <li><Link onClick={isOpen ? handleCloseMenu : null} className="left-menu-nav-link" to={INBOX_ROUTE}>{t('leftMenuTop.inbox')}</Link></li>
           <li><Link onClick={isOpen ? handleCloseMenu : null} className="left-menu-nav-link" to={OUTBOX_ROUTE}>{t('leftMenuTop.outbox')}</Link></li>
           <li><Link onClick={isOpen ? handleCloseMenu : null} className="left-menu-nav-link" to={TODAY_ROUTE}>{t('leftMenuTop.today')}</Link></li>
-          <li><Link onClick={isOpen ? handleCloseMenu : null} className="left-menu-nav-link" to={NOTE_ROUTE}>{t('leftMenuTop.notes')}</Link></li>
+          {/*<li><Link onClick={isOpen ? handleCloseMenu : null} className="left-menu-nav-link" to={NOTE_ROUTE}>{t('leftMenuTop.notes')}</Link></li>*/}
           <li><Link onClick={isOpen ? handleCloseMenu : null} className="left-menu-nav-link" to={LABELS_ROUTE}>{t('leftMenuTop.labels')}</Link></li>
           <li><Link onClick={isOpen ? handleCloseMenu : null} className="left-menu-nav-link" to={ARCHIVE_ROUTE}>{t('leftMenuTop.archive')}</Link></li>
         </ul>
