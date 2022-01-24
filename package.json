@@ -1,7 +1,7 @@
 {
-  "name": "Pet-project todos",
+  "name": "Petproject todos",
   "version": "1.0.0",
-  "description": "Pet-project todos",
+  "description": "Petproject todos",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
