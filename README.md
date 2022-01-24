@@ -3,6 +3,8 @@
     git clone https://github.com/rootyss/todos
 ## Start
     make start or npx webpack serve
+## Deploymented project
+    https://todos-inky-eta.vercel.app/
 #### Менеджер задач со следующим функционалом
 * Backend на Firebase - firebase.google.com
 * Регистрация
