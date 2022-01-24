@@ -9,6 +9,14 @@
      ".write": "auth !== null",
      ".read": "auth !== null",
      ".indexOn": ["userUid"],
-    }
+    },
+     "users": {
+       ".write": "true",
+       ".read": "true",
+     },
+    "comments": {
+     ".write": "auth !== null",
+     ".read": "auth !== null",
+    },
   }
 }
